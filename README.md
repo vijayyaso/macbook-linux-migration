@@ -33,9 +33,11 @@ Details that make it feel right:
 
 - **macOS-style analog acceleration** — pointer gain scales continuously
   with finger velocity: slow = pixel precision, fast = full-screen throws.
-- **Drag continues with any remaining fingers** (1, 2 or 3) once started;
-  it ends shortly after *all* fingers lift, with a drag-lock window for
-  repositioning. No mid-drag hand-back jerks.
+- **Finger-identity tracking** — the drag is steered only by the three
+  fingers that started it. Extra contacts (a palm heel or thumb brushing
+  the pad edge mid-drag) are ignored entirely. Lifting a tracked finger
+  freezes the drag in place; re-placing three fingers within the
+  drag-lock window resumes it, otherwise it ends.
 - **Dead zone + hold-to-grab** — a still 3-finger tap never fires a stray
   click; moving ~0.2 mm or holding ¼ s engages the drag.
 - **Hardware identity passthrough** — the clone inherits the real
