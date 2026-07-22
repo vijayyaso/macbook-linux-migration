@@ -29,6 +29,7 @@ import signal
 import struct
 import sys
 import time
+from collections import deque
 
 import evdev
 from evdev import UInput, ecodes
@@ -56,6 +57,11 @@ JUMP_GUARD = 400          # units (~4 mm/frame): any single tracked finger
                           # jumping farther than this in one frame is a
                           # sensor glitch (edge clipping) — re-anchor
                           # instead of jerking the pointer
+LIFTOFF_GUARD_FRAMES = 2  # motion is emitted this many frames late; when a
+                          # finger lifts, the buffered tail is discarded so
+                          # the fingertip peel-off at drag end doesn't scoot
+                          # the item a little further (~16 ms extra drag
+                          # latency, imperceptible)
 # --------------------------------------------------------------------------
 
 VIRTUAL_TAG = 'three-finger-drag'
@@ -167,6 +173,7 @@ def main():
     v_ema = 0.0
     release_time = None
     res_x = res_y = 0.0
+    pending_motion = deque()   # liftoff guard: delayed motion frames
     next_tid = 1
 
     def slot_points(slot_set):
@@ -200,6 +207,7 @@ def main():
         v_ema = 0.0
         res_x = res_y = 0.0
         release_time = None
+        pending_motion.clear()
 
     def cleanup(*_args):
         end_drag()
@@ -297,10 +305,16 @@ def main():
         fy = raw_dy * gain + res_y
         dx, dy = int(fx), int(fy)
         res_x, res_y = fx - dx, fy - dy
-        if dx or dy:
-            mouse.write(ecodes.EV_REL, ecodes.REL_X, dx)
-            mouse.write(ecodes.EV_REL, ecodes.REL_Y, dy)
-            mouse.syn()
+        # liftoff guard: emit through a short delay buffer so the last
+        # frames before a finger lifts (fingertip peel-off) can be
+        # discarded instead of scooting the item at drag end
+        pending_motion.append((dx, dy))
+        while len(pending_motion) > LIFTOFF_GUARD_FRAMES:
+            odx, ody = pending_motion.popleft()
+            if odx or ody:
+                mouse.write(ecodes.EV_REL, ecodes.REL_X, odx)
+                mouse.write(ecodes.EV_REL, ecodes.REL_Y, ody)
+                mouse.syn()
         prev_pos = pts
         prev_t = t
 
@@ -375,9 +389,12 @@ def main():
                         prev_pos = slot_points(drag_slots)
                         prev_t = t
                         release_time = None
+                        pending_motion.clear()
                     else:
                         # tracked finger(s) lifted: freeze in place —
-                        # the item stays grabbed but does NOT move
+                        # the item stays grabbed but does NOT move, and
+                        # the buffered peel-off motion is discarded
+                        pending_motion.clear()
                         if release_time is None:
                             release_time = time.monotonic()
                 elif n == 3:
