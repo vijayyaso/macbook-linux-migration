@@ -19,6 +19,12 @@ Drag model (matches macOS):
   - Lifting any of the three freezes the drag in place — the held item
     stops moving but stays grabbed. Returning three fingers within the
     drag-lock window resumes; otherwise the drag ends.
+
+4-finger gestures (proxy mode): since 3 fingers are reserved for the
+drag, a 4-finger swipe is replayed to the compositor as a 3-finger
+swipe (three of the real fingers are forwarded), so the desktop's
+native gestures still work — on GNOME: 4-finger left/right switches
+workspace, 4-finger up opens the overview. Same layout as macOS.
 """
 
 import fcntl
@@ -62,6 +68,10 @@ LIFTOFF_GUARD_FRAMES = 2  # motion is emitted this many frames late; when a
                           # the fingertip peel-off at drag end doesn't scoot
                           # the item a little further (~16 ms extra drag
                           # latency, imperceptible)
+FOUR_START_DISTANCE = 100 # units (~1 mm) the 4-finger centroid must move
+                          # before the gesture is shown to the desktop as a
+                          # 3-finger swipe — a still 4-finger tap shows the
+                          # compositor nothing (no ghost taps)
 # --------------------------------------------------------------------------
 
 VIRTUAL_TAG = 'three-finger-drag'
@@ -175,6 +185,10 @@ def main():
     res_x = res_y = 0.0
     pending_motion = deque()   # liftoff guard: delayed motion frames
     next_tid = 1
+    four_latch = False    # 4-finger gesture in progress (or winding down)
+    four_tracked = frozenset()  # the 3 real slots forwarded as the swipe
+    four_prev = None      # previous 4-finger centroid
+    four_cum = 0.0        # centroid distance travelled while 4 are down
 
     def slot_points(slot_set):
         return {s: (slots[s].get(ABS_X, 0), slots[s].get(ABS_Y, 0))
@@ -226,6 +240,30 @@ def main():
     signal.signal(signal.SIGTERM, cleanup)
     signal.signal(signal.SIGINT, cleanup)
 
+    def emit_clone_frame(pairs, sec, usec):
+        # one batched frame with real kernel timestamps (libinput's
+        # velocity model depends on them)
+        buf = b''.join(EVENT_STRUCT.pack(sec, usec, t, c, v)
+                       for t, c, v in pairs)
+        buf += EVENT_STRUCT.pack(sec, usec,
+                                 ecodes.EV_SYN, ecodes.SYN_REPORT, 0)
+        os.write(clone.fd, buf)
+
+    def lift_clone_touches():
+        # one frame lifting every finger the clone still believes is down
+        nonlocal clone_count
+        if not clone_slots:
+            return
+        for s in clone_slots:
+            clone.write(ecodes.EV_ABS, ecodes.ABS_MT_SLOT, s)
+            clone.write(ecodes.EV_ABS, ecodes.ABS_MT_TRACKING_ID, -1)
+        if clone_count in TOOL_BITS:
+            clone.write(ecodes.EV_KEY, TOOL_BITS[clone_count], 0)
+        clone.write(ecodes.EV_KEY, ecodes.BTN_TOUCH, 0)
+        clone.syn()
+        clone_slots.clear()
+        clone_count = 0
+
     def resync_clone():
         # After a suppression window the clone's picture is stale.
         # Frame 1 lifts everything it still holds; frame 2 places the
@@ -233,16 +271,7 @@ def main():
         # and reconciles physical button state (a click released while
         # suppressed would otherwise leave the clone's button stuck).
         nonlocal clone_count, next_tid
-        if clone_slots:
-            for s in clone_slots:
-                clone.write(ecodes.EV_ABS, ecodes.ABS_MT_SLOT, s)
-                clone.write(ecodes.EV_ABS, ecodes.ABS_MT_TRACKING_ID, -1)
-            if clone_count in TOOL_BITS:
-                clone.write(ecodes.EV_KEY, TOOL_BITS[clone_count], 0)
-            clone.write(ecodes.EV_KEY, ecodes.BTN_TOUCH, 0)
-            clone.syn()
-            clone_slots.clear()
-            clone_count = 0
+        lift_clone_touches()
         wrote = False
         if slots:
             for s, axes in slots.items():
@@ -340,6 +369,9 @@ def main():
                         # longer trustworthy. Reset; it self-heals as
                         # contacts end and new ones arrive.
                         slots.clear()
+                        four_latch = False
+                        four_tracked = frozenset()
+                        four_prev = None
                         finish_drag()
                         continue
                     if event.code != ecodes.SYN_REPORT:
@@ -397,6 +429,135 @@ def main():
                         pending_motion.clear()
                         if release_time is None:
                             release_time = time.monotonic()
+                elif n >= 4 or four_latch:
+                    # 4-finger gesture: since 3 fingers are reserved for
+                    # the drag, replay this to the compositor as a
+                    # 3-finger swipe by forwarding three of the real
+                    # fingers — GNOME's native workspace-switch /
+                    # overview gestures fire (macOS layout: 3 = drag,
+                    # 4 = swipe). Passive mode (Xorg) needs nothing:
+                    # the desktop sees the real events anyway.
+                    pending = False
+                    if proxy_mode:
+                        suppressed = True
+                        resync_at = None
+                        if n >= 4:
+                            four_latch = True
+                            cx = sum(v.get(ABS_X, 0)
+                                     for v in slots.values()) / n
+                            cy = sum(v.get(ABS_Y, 0)
+                                     for v in slots.values()) / n
+                            if four_prev is None:
+                                four_cum = 0.0
+                            else:
+                                four_cum += (
+                                    (cx - four_prev[0]) ** 2
+                                    + (cy - four_prev[1]) ** 2) ** 0.5
+                            four_prev = (cx, cy)
+                            if four_tracked:
+                                if four_tracked <= slots.keys():
+                                    # steer: forward the tracked fingers'
+                                    # real positions (and touch size, so
+                                    # hardware quirks keep applying)
+                                    pairs = []
+                                    for s in sorted(four_tracked):
+                                        pairs.append(
+                                            (ecodes.EV_ABS,
+                                             ecodes.ABS_MT_SLOT, s))
+                                        pairs.extend(
+                                            (ecodes.EV_ABS, code, value)
+                                            for code, value
+                                            in slots[s].items())
+                                    first = slots[min(four_tracked)]
+                                    pairs.append(
+                                        (ecodes.EV_ABS, ecodes.ABS_X,
+                                         first.get(ABS_X, 0)))
+                                    pairs.append(
+                                        (ecodes.EV_ABS, ecodes.ABS_Y,
+                                         first.get(ABS_Y, 0)))
+                                    emit_clone_frame(
+                                        pairs, event.sec, event.usec)
+                                else:
+                                    # a tracked finger vanished
+                                    # mid-gesture: end the swipe cleanly;
+                                    # renewed motion starts a fresh one
+                                    lift_clone_touches()
+                                    four_tracked = frozenset()
+                                    four_prev = None
+                            elif four_cum > FOUR_START_DISTANCE:
+                                # moving with intent: show three of the
+                                # four fingers as a 3-finger swipe.
+                                # Fingers the clone already holds (from
+                                # mirroring before suppression) are kept
+                                # alive, not re-placed — no lift means no
+                                # ghost tap at swipe start.
+                                keep = sorted(set(clone_slots)
+                                              & slots.keys())
+                                extra = [s for s in sorted(slots)
+                                         if s not in clone_slots]
+                                tracked = (keep + extra)[:3]
+                                pairs = []
+                                for s in sorted(set(clone_slots)
+                                                - set(tracked)):
+                                    pairs.append(
+                                        (ecodes.EV_ABS,
+                                         ecodes.ABS_MT_SLOT, s))
+                                    pairs.append(
+                                        (ecodes.EV_ABS,
+                                         ecodes.ABS_MT_TRACKING_ID, -1))
+                                for s in tracked:
+                                    pairs.append(
+                                        (ecodes.EV_ABS,
+                                         ecodes.ABS_MT_SLOT, s))
+                                    if s not in clone_slots:
+                                        pairs.append(
+                                            (ecodes.EV_ABS,
+                                             ecodes.ABS_MT_TRACKING_ID,
+                                             next_tid))
+                                        next_tid = next_tid % 65535 + 1
+                                    pairs.extend(
+                                        (ecodes.EV_ABS, code, value)
+                                        for code, value
+                                        in slots[s].items())
+                                first = slots[tracked[0]]
+                                pairs.append(
+                                    (ecodes.EV_ABS, ecodes.ABS_X,
+                                     first.get(ABS_X, 0)))
+                                pairs.append(
+                                    (ecodes.EV_ABS, ecodes.ABS_Y,
+                                     first.get(ABS_Y, 0)))
+                                if (clone_count != 3
+                                        and clone_count in TOOL_BITS):
+                                    pairs.append(
+                                        (ecodes.EV_KEY,
+                                         TOOL_BITS[clone_count], 0))
+                                if clone_count != 3:
+                                    pairs.append(
+                                        (ecodes.EV_KEY,
+                                         ecodes.BTN_TOOL_TRIPLETAP, 1))
+                                if not clone_slots:
+                                    pairs.append(
+                                        (ecodes.EV_KEY,
+                                         ecodes.BTN_TOUCH, 1))
+                                emit_clone_frame(
+                                    pairs, event.sec, event.usec)
+                                four_tracked = frozenset(tracked)
+                                clone_slots.clear()
+                                clone_slots.update(tracked)
+                                clone_count = 3
+                        else:
+                            # fingers lifting: complete the synthetic
+                            # swipe now, and stay suppressed until ALL
+                            # fingers are up so the staggered liftoff can
+                            # neither arm a drag nor ghost-tap
+                            if four_tracked:
+                                lift_clone_touches()
+                                four_tracked = frozenset()
+                            four_prev = None
+                            if n == 0:
+                                four_latch = False
+                                suppressed = False
+                                resync_clone()
                 elif n == 3:
                     if proxy_mode:
                         suppressed = True
@@ -416,12 +577,6 @@ def main():
                         if (cum_dist > DRAG_START_DISTANCE
                                 or t - pend_t > DRAG_START_HOLD):
                             start_drag(t)
-                elif n > 3:
-                    # 4+ fingers and no drag: hide it and disarm
-                    pending = False
-                    if proxy_mode:
-                        suppressed = True
-                        resync_at = None
                 else:
                     pending = False   # armed but never moved: no stray click
                     if suppressed:

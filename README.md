@@ -6,7 +6,9 @@ Wayland and Xorg**, including GNOME Wayland where the compositor's own
 
 Move windows, select text, and drag files by placing three fingers on the
 touchpad and moving them — exactly like enabling *Three Finger Drag* on a
-MacBook.
+MacBook. Four-finger swipes still reach the desktop, so compositor
+gestures (workspace switch, overview) keep working — the full macOS
+layout: **3 fingers = drag, 4 fingers = swipe**.
 
 ## Why this exists
 
@@ -49,6 +51,12 @@ Details that make it feel right:
   finger-count changes re-anchor instead of jerking the pointer.
 - **Ghost-tap prevention** — staggered finger lifts are held back briefly
   so they can't register as phantom 2-finger taps (right-clicks).
+- **4-finger swipe translation** (proxy mode) — since 3 fingers are
+  reserved for the drag, a 4-finger swipe is replayed to the compositor
+  as a 3-finger swipe (three of the real fingers are forwarded live), so
+  GNOME's native gestures fire: 4-finger left/right switches workspace,
+  4-finger up opens the overview. A still 4-finger tap shows the desktop
+  nothing.
 
 ## Requirements
 
