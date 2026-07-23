@@ -47,6 +47,34 @@ done
 section "Current display brightness"
 ioreg -c AppleBacklightDisplay 2>/dev/null | grep -i '"brightness"' | head -2 || echo "(not found)"
 
+section "Keyboard feel (repeat rate / initial delay / press-and-hold)"
+echo "KeyRepeat:          $(defaults read -g KeyRepeat 2>/dev/null || echo 'default 6 (~90ms)')"
+echo "InitialKeyRepeat:   $(defaults read -g InitialKeyRepeat 2>/dev/null || echo 'default 25 (~375ms)')"
+echo "ApplePressAndHold:  $(defaults read -g ApplePressAndHoldEnabled 2>/dev/null || echo 'default 1')"
+
+section "Function keys behave as F1-F12 (com.apple.keyboard.fnState)"
+defaults read -g com.apple.keyboard.fnState 2>/dev/null || echo "(not set = media keys first)"
+
+section "Keyboard backlight settings"
+defaults read com.apple.BezelServices 2>/dev/null | grep -iE "dim|auto" || echo "(none)"
+ioreg -c AppleHIDKeyboardEventDriverV2 2>/dev/null | grep -i backlight | head -3
+
+section "Thermal state and CPU speed limit (pmset -g therm)"
+pmset -g therm 2>/dev/null || echo "(not available)"
+
+section "Power management settings (pmset -g custom)"
+pmset -g custom 2>/dev/null || pmset -g 2>/dev/null
+
+section "Display and GPU info"
+system_profiler SPDisplaysDataType 2>/dev/null | grep -viE "serial|uuid"
+
+section "Battery health (cycle count / condition)"
+system_profiler SPPowerDataType 2>/dev/null | grep -viE "serial|uuid|address" | grep -iE "cycle|condition|capacity|charge|wattage|voltage" | head -12
+
+section "Fan speeds and CPU temperature under macOS (needs admin password)"
+echo "This last section asks for your macOS password (sudo). Ctrl-C here is fine - everything above is already saved."
+sudo powermetrics --samplers smc -i1000 -n1 2>/dev/null | grep -iE "fan|die temp|cpu power" || echo "(skipped or not supported)"
+
 echo
 echo "Done. Values saved to: $OUT"
 echo "Either 'git add mac-values.txt && git commit -m \"add extracted values\" && git push'"

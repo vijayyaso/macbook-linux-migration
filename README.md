@@ -37,3 +37,12 @@ git push
 | `AppleMultitouchTrackpad` prefs | Tap-to-click, three-finger drag, click firmness |
 | ALS lux samples | Calibrating webcam-based auto-brightness mapping |
 | Display brightness | Cross-checking brightness scale |
+| `KeyRepeat` / `InitialKeyRepeat` | GNOME keyboard repeat rate and delay |
+| `com.apple.keyboard.fnState` | Linux `hid_apple fnmode` (F-keys vs media keys) |
+| Keyboard backlight prefs | Keyboard backlight restore service tuning |
+| `pmset -g therm` + fan/temp sample | Comparing macOS vs Linux thermal behavior (mbpfan curves) |
+| `pmset -g custom` | Sleep/suspend timings on Linux |
+| Display/GPU info | Verifying scaling and refresh settings |
+| Battery cycle count / condition | Judging how much battery aging explains runtime |
+
+No serial numbers, UUIDs, or MAC addresses are written to the output.
