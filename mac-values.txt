@@ -1,0 +1,1990 @@
+
+===== System =====
+ProductName:		macOS
+ProductVersion:		14.8.7
+BuildVersion:		23J520
+MacBookPro11,4
+
+===== Trackpad tracking speed (com.apple.trackpad.scaling, range 0-3) =====
+0.875
+
+===== Mouse tracking speed (com.apple.mouse.scaling) =====
+(not set)
+
+===== Scroll speed (com.apple.scrollwheel.scaling) =====
+(not set = default 0.75)
+
+===== Natural scrolling (com.apple.swipescrolldirection) =====
+(not set = default 1/on)
+
+===== Double-click threshold (com.apple.mouse.doubleClickThreshold) =====
+(not set = default 0.5)
+
+===== Built-in trackpad preferences (com.apple.AppleMultitouchTrackpad) =====
+{
+    ActuateDetents = 1;
+    ActuationStrength = 0;
+    Clicking = 1;
+    DragLock = 0;
+    Dragging = 0;
+    FirstClickThreshold = 1;
+    ForceSuppressed = 0;
+    SecondClickThreshold = 1;
+    TrackpadCornerSecondaryClick = 0;
+    TrackpadFiveFingerPinchGesture = 2;
+    TrackpadFourFingerHorizSwipeGesture = 2;
+    TrackpadFourFingerPinchGesture = 2;
+    TrackpadFourFingerVertSwipeGesture = 2;
+    TrackpadHandResting = 1;
+    TrackpadHorizScroll = 1;
+    TrackpadMomentumScroll = 1;
+    TrackpadPinch = 1;
+    TrackpadRightClick = 1;
+    TrackpadRotate = 1;
+    TrackpadScroll = 1;
+    TrackpadThreeFingerDrag = 1;
+    TrackpadThreeFingerHorizSwipeGesture = 0;
+    TrackpadThreeFingerTapGesture = 0;
+    TrackpadThreeFingerVertSwipeGesture = 0;
+    TrackpadTwoFingerDoubleTapGesture = 1;
+    TrackpadTwoFingerFromRightEdgeSwipeGesture = 3;
+    USBMouseStopsTrackpad = 0;
+    UserPreferences = 1;
+    version = 12;
+}
+
+===== Bluetooth trackpad preferences =====
+{
+    Clicking = 1;
+    DragLock = 0;
+    Dragging = 0;
+    TrackpadCornerSecondaryClick = 0;
+    TrackpadFiveFingerPinchGesture = 2;
+    TrackpadFourFingerHorizSwipeGesture = 2;
+    TrackpadFourFingerPinchGesture = 2;
+    TrackpadFourFingerVertSwipeGesture = 2;
+    TrackpadHandResting = 1;
+    TrackpadHorizScroll = 1;
+    TrackpadMomentumScroll = 1;
+    TrackpadPinch = 1;
+    TrackpadRightClick = 1;
+    TrackpadRotate = 1;
+    TrackpadScroll = 1;
+    TrackpadThreeFingerDrag = 1;
+    TrackpadThreeFingerHorizSwipeGesture = 0;
+    TrackpadThreeFingerTapGesture = 0;
+    TrackpadThreeFingerVertSwipeGesture = 0;
+    TrackpadTwoFingerDoubleTapGesture = 1;
+    TrackpadTwoFingerFromRightEdgeSwipeGesture = 3;
+    USBMouseStopsTrackpad = 0;
+    UserPreferences = 1;
+    version = 5;
+}
+
+===== Ambient light sensor - 10 samples over 20s =====
+Cover / uncover the camera area while this runs to capture the range.
+sample 1: (no ALS reading found via ioreg)
+sample 2: (no ALS reading found via ioreg)
+sample 3: (no ALS reading found via ioreg)
+sample 4: (no ALS reading found via ioreg)
+sample 5: (no ALS reading found via ioreg)
+sample 6: (no ALS reading found via ioreg)
+sample 7: (no ALS reading found via ioreg)
+sample 8: (no ALS reading found via ioreg)
+sample 9: (no ALS reading found via ioreg)
+sample 10: (no ALS reading found via ioreg)
+
+===== Current display brightness =====
+    | |   | | |       "IODisplayParameters" = {"commit"={"reg"=0},"linear-brightness-probe"={"min"=0,"max"=1891,"value"=150},"fade-time2"={"min"=0,"max"=10000,"value"=4000},"ggsc"={"min"=0,"max"=65536,"value"=65536},"vblm"={"min"=0,"max"=196608,"value"=65536},"dsyp"={"min"=0,"max"=2,"value"=2},"rgsc"={"min"=0,"max"=65536,"value"=65536},"fade-style"={"min"=0,"max"=10,"value"=0},"fade-time1"={"min"=0,"max"=10000,"value"=500},"bgsc"={"min"=0,"max"=65536,"value"=65536},"brightness-probe"={"min"=0,"max"=1024,"value"=320},"fade-time3"={"min"=0,"max"=10000,"value"=500},"bklt"={"min"=0,"max"=1953,"value"=224},"linear-brightness"={"min"=0,"max"=1891,"value"=150},"brightness"={"min"=0,"max"=1024,"value"=321},"brightness-fade"={"min"=0,"max"=1023,"value"=0},"usable-linear-brightness"={"min"=30,"max"=1891,"value"=150},"ownr"=4294968426}
+
+===== Keyboard feel (repeat rate / initial delay / press-and-hold) =====
+KeyRepeat:          default 6 (~90ms)
+InitialKeyRepeat:   default 25 (~375ms)
+ApplePressAndHold:  default 1
+
+===== Function keys behave as F1-F12 (com.apple.keyboard.fnState) =====
+(not set = media keys first)
+
+===== Keyboard backlight settings =====
+(none)
+    | |   | | | +-o AppleBacklightDisplay  <class AppleBacklightDisplay, id 0x10000050d, registered, matched, active, busy 0 (2 ms), retain 9>
+
+===== Dock behaviour (com.apple.dock) =====
+tilesize:                                        (not set = default ~64)
+magnification:                                   (not set = default 0/off)
+largesize:                                       (not set = default ~128)
+autohide:                                        1
+autohide-delay:                                  (not set = default 0.5s)
+autohide-time-modifier:                          (not set = default ~0.5s animation)
+mineffect:                                       (not set = default genie)
+minimize-to-application:                         (not set = default 0/own thumbnail)
+launchanim:                                      (not set = default 1/bounce on launch)
+orientation:                                     (not set = default bottom)
+show-recents:                                    (not set = default 1/on)
+
+===== Hot corners (com.apple.dock wvous-*; 1=off 2=MissionControl 3=AppWindows 4=Desktop 5=ScreenSaver 6=DisableSaver 10=DisplaySleep 11=Launchpad 12=NotificationCenter 13=LockScreen 14=QuickNote) =====
+wvous-tl-corner:                                 (not set = default: br=QuickNote, others off)
+wvous-tl-modifier:                               (not set = default 0/no modifier)
+wvous-tr-corner:                                 (not set = default: br=QuickNote, others off)
+wvous-tr-modifier:                               (not set = default 0/no modifier)
+wvous-bl-corner:                                 (not set = default: br=QuickNote, others off)
+wvous-bl-modifier:                               (not set = default 0/no modifier)
+wvous-br-corner:                                 14
+wvous-br-modifier:                               (not set = default 0/no modifier)
+
+===== Mission Control / Spaces behaviour =====
+mru-spaces:                                      (not set = default 1/auto-rearrange Spaces by use)
+expose-group-apps:                               (not set = default 0/windows not grouped by app)
+expose-animation-duration:                       (not set = default ~0.2s)
+AppleSpacesSwitchOnActivate:                     (not set = default 1/switch to app's Space)
+spans-displays:                                  (not set = default 0/displays have separate Spaces)
+
+===== Window behaviour & UI feel (NSGlobalDomain) =====
+AppleActionOnDoubleClick:                        (not set = default Maximize/zoom on title-bar double-click)
+AppleShowScrollBars:                             (not set = default Automatic)
+AppleScrollerPagingBehavior:                     (not set = default 0/click scroll bar jumps one page)
+NSAutomaticWindowAnimationsEnabled:              (not set = default 1/window open-close animations on)
+NSWindowResizeTime:                              (not set = default 0.2s)
+CGDisableCursorLocationMagnification:            (not set = default 0/shake-to-locate cursor on)
+_HIHideMenuBar:                                  0
+AppleInterfaceStyle:                             Dark
+AppleInterfaceStyleSwitchesAutomatically:        (not set = default 0/no auto light-dark)
+AppleAccentColor:                                (not set = multicolour accent)
+AppleHighlightColor:                             (not set = accent-matched highlight)
+NSTableViewDefaultSizeMode:                      (not set = default 2/medium sidebar icons)
+
+===== Accessibility motion/transparency (com.apple.universalaccess) =====
+reduceMotion:                                    (not set = default 0/full animations)
+reduceTransparency:                              (not set = default 0/translucent UI)
+
+===== Text input behaviours (NSGlobalDomain) =====
+NSAutomaticSpellingCorrectionEnabled:            (not set = default 1/autocorrect on)
+NSAutomaticCapitalizationEnabled:                1
+NSAutomaticQuoteSubstitutionEnabled:             (not set = default 1/smart quotes on)
+NSAutomaticDashSubstitutionEnabled:              (not set = default 1/smart dashes on)
+NSAutomaticPeriodSubstitutionEnabled:            1
+AppleKeyboardUIMode:                             (not set = default 0/full keyboard access off)
+
+===== Navigation gestures (NSGlobalDomain) =====
+AppleEnableSwipeNavigateWithScrolls:             (not set = default 1/two-finger swipe between pages)
+AppleEnableMouseSwipeNavigateWithScrolls:        (not set = default 0)
+
+===== Modifier key remaps =====
+(no per-host modifier remaps)
+
+===== Locale, language, and formats =====
+AppleLanguages:                                  (
+    "en-US"
+)
+AppleLocale:                                     en_US@rg=inzzzz
+AppleMeasurementUnits:                           (not set = per locale)
+AppleMetricUnits:                                (not set = per locale)
+AppleTemperatureUnit:                            (not set = per locale)
+AppleICUForce24HourTime:                         (not set = per locale 12/24h)
+AppleFirstWeekday:                               (not set = per locale)
+Time zone:                                       Asia/Kolkata
+
+===== Keyboard layouts / input sources (com.apple.HIToolbox) =====
+AppleEnabledInputSources:                        (
+        {
+        InputSourceKind = "Keyboard Layout";
+        "KeyboardLayout ID" = 0;
+        "KeyboardLayout Name" = "U.S.";
+    },
+        {
+        "Bundle ID" = "com.apple.CharacterPaletteIM";
+        InputSourceKind = "Non Keyboard Input Method";
+    },
+        {
+        "Bundle ID" = "com.apple.PressAndHold";
+        InputSourceKind = "Non Keyboard Input Method";
+    }
+)
+AppleSelectedInputSources:                       (
+        {
+        InputSourceKind = "Keyboard Layout";
+        "KeyboardLayout ID" = 0;
+        "KeyboardLayout Name" = "U.S.";
+    },
+        {
+        "Bundle ID" = "com.apple.PressAndHold";
+        InputSourceKind = "Non Keyboard Input Method";
+    }
+)
+AppleFnUsageType:                                (not set = default/no globe-key action)
+
+===== Screenshots (com.apple.screencapture) =====
+location:                                        (not set = default ~/Desktop)
+type:                                            (not set = default png)
+disable-shadow:                                  (not set = default 0/shadow on)
+include-date:                                    (not set = default 1/date in filename)
+show-thumbnail:                                  (not set = default 1/floating thumbnail)
+
+===== Finder behaviour (curated) =====
+AppleShowAllExtensions:                          (not set = default 0/hide extensions)
+AppleShowAllFiles:                               (not set = default 0/hide hidden files)
+ShowPathbar:                                     (not set = default 0/off)
+ShowStatusBar:                                   (not set = default 0/off)
+ShowHardDrivesOnDesktop:                         1
+ShowExternalHardDrivesOnDesktop:                 1
+ShowRemovableMediaOnDesktop:                     1
+ShowMountedServersOnDesktop:                     1
+NewWindowTarget:                                 (not set = default Recents)
+FXPreferredViewStyle:                            icnv
+FXDefaultSearchScope:                            (not set = default SCev/search this Mac)
+FXEnableExtensionChangeWarning:                  (not set = default 1/warn)
+_FXSortFoldersFirst:                             (not set = default 0/mixed)
+WarnOnEmptyTrash:                                (not set = default 1/warn)
+
+===== Sound behaviour =====
+com.apple.sound.beep.sound:                      (not set = default Boop/system alert)
+com.apple.sound.beep.volume:                     (not set = default 1.0)
+com.apple.sound.beep.feedback:                   (not set = default 0/no beep on volume keys)
+com.apple.sound.beep.flash:                      0
+com.apple.sound.uiaudio.enabled:                 (not set = default 1/UI sound effects on)
+Current volume state:                            output volume:62, input volume:50, alert volume:100, output muted:false
+
+===== Screen lock & screensaver =====
+screensaver idleTime (per-host):                 (not set = default 1200s/20min)
+askForPassword:                                  (not set = default 1/require password)
+askForPasswordDelay:                             (not set = default 0s)
+
+===== Night Shift / blue light (com.apple.CoreBrightness) =====
+(read via sudo from root CoreBrightness plist)
+        CBBlueReductionStatus =         {
+            AutoBlueReductionEnabled = 1;
+            BlueLightReductionSchedule =             {
+                DayStartHour = 7;
+                DayStartMinute = 0;
+                NightStartHour = 22;
+                NightStartMinute = 0;
+            };
+            BlueReductionAvailable = 1;
+            BlueReductionEnabled = 0;
+            BlueReductionMode = 0;
+            BlueReductionSunScheduleAllowed = 1;
+            Version = 1;
+        };
+
+===== Font rendering =====
+AppleFontSmoothing:                              (not set = default/medium smoothing)
+CGFontRenderingFontSmoothingDisabled:            (not set = default/smoothing enabled)
+
+===== Cursor & accessibility extras =====
+mouseDriverCursorSize:                           (not set = default 1.0/normal cursor)
+closeViewScrollWheelToggle:                      (not set = default 0/scroll-zoom off)
+
+===== Menu bar clock (com.apple.menuextra.clock) =====
+{
+    ShowAMPM = 1;
+    ShowDate = 0;
+    ShowDayOfWeek = 1;
+}
+
+===== Menu bar / Control Centre battery percentage =====
+BatteryShowPercentage:                           (not set = default 0/off)
+
+===== Dock pinned apps (persistent-apps) =====
+            "file-label" = Launchpad;
+            "file-label" = "System Settings";
+            "file-label" = Warp;
+            "file-label" = "Google Chrome";
+            "file-label" = Orca;
+            "file-label" = "Antigravity IDE";
+            "file-label" = NoMachine;
+
+===== Default app handlers (LaunchServices - maps file types/URLs to apps) =====
+(
+        {
+        LSHandlerPreferredVersions =         {
+            LSHandlerRoleAll = "-";
+        };
+        LSHandlerRoleAll = "com.apple.gamecenter.gamecenteruiservice";
+        LSHandlerURLScheme = gamecenter;
+    },
+        {
+        LSHandlerPreferredVersions =         {
+            LSHandlerRoleAll = "-";
+        };
+        LSHandlerRoleAll = "com.apple.gamecenter.gamecenteruiservice";
+        LSHandlerURLScheme = "itms-gc";
+    },
+        {
+        LSHandlerPreferredVersions =         {
+            LSHandlerRoleAll = "-";
+        };
+        LSHandlerRoleAll = "com.apple.gamecenter.gamecenteruiservice";
+        LSHandlerURLScheme = "itms-gcs";
+    },
+        {
+        LSHandlerPreferredVersions =         {
+            LSHandlerRoleAll = "-";
+        };
+        LSHandlerRoleAll = "com.supercmd.app";
+        LSHandlerURLScheme = supercmd;
+    },
+        {
+        LSHandlerPreferredVersions =         {
+            LSHandlerRoleAll = "-";
+        };
+        LSHandlerRoleAll = "com.google.chrome";
+        LSHandlerURLScheme = http;
+    },
+        {
+        LSHandlerPreferredVersions =         {
+            LSHandlerRoleAll = "-";
+        };
+        LSHandlerRoleAll = "com.google.chrome";
+        LSHandlerURLScheme = https;
+    },
+        {
+        LSHandlerContentType = "public.html";
+        LSHandlerPreferredVersions =         {
+            LSHandlerRoleAll = "-";
+        };
+        LSHandlerRoleAll = "com.google.chrome";
+    },
+        {
+        LSHandlerPreferredVersions =         {
+            LSHandlerRoleAll = "-";
+        };
+        LSHandlerRoleAll = "org.freedownloadmanager.fdm6";
+        LSHandlerURLScheme = fdm;
+    },
+        {
+        LSHandlerPreferredVersions =         {
+            LSHandlerRoleAll = "-";
+        };
+        LSHandlerRoleAll = "io.balena.etcher";
+        LSHandlerURLScheme = etcher;
+    },
+        {
+        LSHandlerContentTag = torrent;
+        LSHandlerContentTagClass = "public.filename-extension";
+        LSHandlerPreferredVersions =         {
+            LSHandlerRoleAll = "-";
+        };
+        LSHandlerRoleAll = "org.freedownloadmanager.fdm6";
+    },
+        {
+        LSHandlerPreferredVersions =         {
+            LSHandlerRoleAll = "-";
+        };
+        LSHandlerRoleAll = "com.anthropic.claudefordesktop";
+        LSHandlerURLScheme = claude;
+    },
+        {
+        LSHandlerContentType = "com.apple.ical.backup-package";
+        LSHandlerPreferredVersions =         {
+            LSHandlerRoleAll = "-";
+        };
+        LSHandlerRoleAll = "com.apple.ical";
+    }
+)
+
+===== Computer name =====
+vijayyaso’s MacBook Pro
+vijayyasos-MacBook-Pro
+
+===== Terminal.app default profile =====
+Default Window Settings:                         Basic
+
+===== Installed applications (/Applications) - for choosing Linux equivalents =====
+Antigravity IDE.app
+Antigravity.app
+Blackmagic Disk Speed Test.app
+Claude.app
+Devin.app
+Free Download Manager.app
+Google Chrome.app
+LocalSend.app
+Microsoft Edge.app
+NoMachine.app
+OpenCore-Patcher.app
+OrbStack.app
+Orca.app
+RustDesk.app
+Safari.app
+SuperCmd.app
+Tailscale.app
+Telegram.app
+UltiMaker Cura.app
+Utilities
+Visual Studio Code.app
+Warp.app
+WhatsApp.app
+balenaEtcher.app
+superwhisper.app
+Chrome Apps.localized
+Claude Code URL Handler.app
+
+===== Homebrew packages (if installed) =====
+--- formulae ---
+coolify-cli 1.6.2
+gh 2.96.0
+--- casks ---
+
+===== Raw preference domain dumps (appendix - full behaviour safety net) =====
+
+--- defaults read com.apple.dock ---
+{
+    autohide = 1;
+    "last-analytics-stamp" =     (
+        "806512963.275553"
+    );
+    lastShowIndicatorTime = "806514489.097404";
+    loc = "en_US:(null)";
+    "mod-count" = 165;
+    "persistent-apps" =     (
+                {
+            GUID = 2956649476;
+            "tile-data" =             {
+                book = {length = 592, bytes = 0x626f6f6b 50020000 00000510 40000000 ... 04000000 00000000 };
+                "bundle-identifier" = "com.apple.launchpad.launcher";
+                "dock-extra" = 0;
+                "file-data" =                 {
+                    "_CFURLString" = "file:///System/Applications/Launchpad.app/";
+                    "_CFURLStringType" = 15;
+                };
+                "file-label" = Launchpad;
+                "file-mod-date" = 3860382022;
+                "file-type" = 169;
+                "is-beta" = 0;
+                "parent-mod-date" = 3860382022;
+            };
+            "tile-type" = "file-tile";
+        },
+                {
+            GUID = 2956649492;
+            "tile-data" =             {
+                book = {length = 596, bytes = 0x626f6f6b 54020000 00000510 40000000 ... 04000000 00000000 };
+                "bundle-identifier" = "com.apple.systempreferences";
+                "dock-extra" = 1;
+                "file-data" =                 {
+                    "_CFURLString" = "file:///System/Applications/System%20Settings.app/";
+                    "_CFURLStringType" = 15;
+                };
+                "file-label" = "System Settings";
+                "file-mod-date" = 3860382022;
+                "file-type" = 41;
+                "is-beta" = 0;
+                "parent-mod-date" = 3860382022;
+            };
+            "tile-type" = "file-tile";
+        },
+                {
+            GUID = 4088154609;
+            "tile-data" =             {
+                book = {length = 560, bytes = 0x626f6f6b 30020000 00000510 40000000 ... 04000000 00000000 };
+                "bundle-identifier" = "dev.warp.Warp-Stable";
+                "dock-extra" = 1;
+                "file-data" =                 {
+                    "_CFURLString" = "file:///Applications/Warp.app/";
+                    "_CFURLStringType" = 15;
+                };
+                "file-label" = Warp;
+                "file-mod-date" = 24347741716312;
+                "file-type" = 41;
+                "is-beta" = 0;
+                "parent-mod-date" = 83991952779140;
+            };
+            "tile-type" = "file-tile";
+        },
+                {
+            GUID = 2973571856;
+            "tile-data" =             {
+                book = {length = 572, bytes = 0x626f6f6b 3c020000 00000510 40000000 ... 04000000 00000000 };
+                "bundle-identifier" = "com.google.Chrome";
+                "dock-extra" = 0;
+                "file-data" =                 {
+                    "_CFURLString" = "file:///Applications/Google%20Chrome.app/";
+                    "_CFURLStringType" = 15;
+                };
+                "file-label" = "Google Chrome";
+                "file-mod-date" = 3866315107;
+                "file-type" = 41;
+                "is-beta" = 0;
+                "parent-mod-date" = 141273931865088;
+            };
+            "tile-type" = "file-tile";
+        },
+                {
+            GUID = 4088154601;
+            "tile-data" =             {
+                book = {length = 560, bytes = 0x626f6f6b 30020000 00000510 40000000 ... 04000000 00000000 };
+                "bundle-identifier" = "com.stablyai.orca";
+                "dock-extra" = 0;
+                "file-data" =                 {
+                    "_CFURLString" = "file:///Applications/Orca.app/";
+                    "_CFURLStringType" = 15;
+                };
+                "file-label" = Orca;
+                "file-mod-date" = 3867522582;
+                "file-type" = 41;
+                "is-beta" = 0;
+                "parent-mod-date" = 141273931865088;
+            };
+            "tile-type" = "file-tile";
+        },
+                {
+            GUID = 2973571871;
+            "tile-data" =             {
+                book = {length = 572, bytes = 0x626f6f6b 3c020000 00000510 40000000 ... 04000000 00000000 };
+                "bundle-identifier" = "com.google.antigravity-ide";
+                "dock-extra" = 0;
+                "file-data" =                 {
+                    "_CFURLString" = "file:///Applications/Antigravity%20IDE.app/";
+                    "_CFURLStringType" = 15;
+                };
+                "file-label" = "Antigravity IDE";
+                "file-mod-date" = 3864582678;
+                "file-type" = 41;
+                "is-beta" = 0;
+                "parent-mod-date" = 5406936150233;
+            };
+            "tile-type" = "file-tile";
+        },
+                {
+            GUID = 2973571872;
+            "tile-data" =             {
+                book = {length = 568, bytes = 0x626f6f6b 38020000 00000510 40000000 ... 04000000 00000000 };
+                "bundle-identifier" = "com.nomachine.nxdock";
+                "dock-extra" = 0;
+                "file-data" =                 {
+                    "_CFURLString" = "file:///Applications/NoMachine.app/";
+                    "_CFURLStringType" = 15;
+                };
+                "file-label" = NoMachine;
+                "file-mod-date" = 268843049715563;
+                "file-type" = 41;
+                "is-beta" = 0;
+                "parent-mod-date" = 188368248256951;
+            };
+            "tile-type" = "file-tile";
+        }
+    );
+    "persistent-others" =     (
+                {
+            GUID = 2956649493;
+            "tile-data" =             {
+                arrangement = 2;
+                book = {length = 652, bytes = 0x626f6f6b 8c020000 00000510 40000000 ... 04000000 00000000 };
+                displayas = 0;
+                "file-data" =                 {
+                    "_CFURLString" = "file:///Users/vijayyaso/Downloads/";
+                    "_CFURLStringType" = 15;
+                };
+                "file-label" = Downloads;
+                "file-mod-date" = 205406382748894;
+                "file-type" = 2;
+                "is-beta" = 0;
+                "parent-mod-date" = 252230116209953;
+                preferreditemsize = "-1";
+                showas = 1;
+            };
+            "tile-type" = "directory-tile";
+        }
+    );
+    "recent-apps" =     (
+                {
+            GUID = 1035676968;
+            "tile-data" =             {
+                book = {length = 568, bytes = 0x626f6f6b 38020000 00000510 40000000 ... 04000000 00000000 };
+                "bundle-identifier" = "io.tailscale.ipn.macsys";
+                "dock-extra" = 0;
+                "file-data" =                 {
+                    "_CFURLString" = "file:///Applications/Tailscale.app/";
+                    "_CFURLStringType" = 15;
+                };
+                "file-label" = Tailscale;
+                "file-mod-date" = 68268076989973;
+                "file-type" = 1;
+                "is-beta" = 0;
+                "parent-mod-date" = 215907578481934;
+            };
+            "tile-type" = "file-tile";
+        },
+                {
+            GUID = 2005510937;
+            "tile-data" =             {
+                book = {length = 568, bytes = 0x626f6f6b 38020000 00000510 40000000 ... 04000000 00000000 };
+                "bundle-identifier" = "com.superduper.superwhisper";
+                "dock-extra" = 0;
+                "file-data" =                 {
+                    "_CFURLString" = "file:///Applications/superwhisper.app/";
+                    "_CFURLStringType" = 15;
+                };
+                "file-label" = superwhisper;
+                "file-mod-date" = 3866822651;
+                "file-type" = 1;
+                "is-beta" = 0;
+                "parent-mod-date" = 141273931865088;
+            };
+            "tile-type" = "file-tile";
+        },
+                {
+            GUID = 2005510938;
+            "tile-data" =             {
+                book = {length = 580, bytes = 0x626f6f6b 44020000 00000510 40000000 ... 04000000 00000000 };
+                "bundle-identifier" = "org.freedownloadmanager.fdm6";
+                "dock-extra" = 0;
+                "file-data" =                 {
+                    "_CFURLString" = "file:///Applications/Free%20Download%20Manager.app/";
+                    "_CFURLStringType" = 15;
+                };
+                "file-label" = "Free Download Manager";
+                "file-mod-date" = 3865910510;
+                "file-type" = 1;
+                "is-beta" = 0;
+                "parent-mod-date" = 141273931865088;
+            };
+            "tile-type" = "file-tile";
+        }
+    );
+    region = IN;
+    "trash-full" = 1;
+    version = 1;
+    "wvous-br-corner" = 14;
+}
+
+--- defaults read com.apple.finder ---
+{
+    ComputerViewSettings =     {
+        CustomViewStyleVersion = 1;
+        WindowState =         {
+            ContainerShowSidebar = 1;
+            ShowSidebar = 1;
+            ShowStatusBar = 0;
+            ShowTabView = 1;
+            ShowToolbar = 1;
+            WindowBounds = "{{260, 329}, {920, 436}}";
+        };
+    };
+    CopyProgressWindowLocation = "{520, 206}";
+    DataSeparatedDisplayNameCache = "";
+    DesktopViewSettings =     {
+        IconViewSettings =         {
+            arrangeBy = none;
+            backgroundColorBlue = 1;
+            backgroundColorGreen = 1;
+            backgroundColorRed = 1;
+            backgroundType = 0;
+            gridOffsetX = 0;
+            gridOffsetY = 0;
+            gridSpacing = 54;
+            iconSize = 64;
+            labelOnBottom = 1;
+            showIconPreview = 1;
+            showItemInfo = 0;
+            textSize = 12;
+            viewOptionsVersion = 1;
+        };
+    };
+    DownloadsFolderListViewSettingsVersion = 1;
+    EmptyTrashProgressWindowLocation = "{640, 265}";
+    "FK_AppCentricShowSidebar" = 1;
+    "FK_DefaultIconViewSettings" =     {
+        arrangeBy = dateModified;
+        backgroundColorBlue = 1;
+        backgroundColorGreen = 1;
+        backgroundColorRed = 1;
+        backgroundType = 0;
+        gridOffsetX = 0;
+        gridOffsetY = 0;
+        gridSpacing = 54;
+        iconSize = 64;
+        labelOnBottom = 1;
+        showIconPreview = 1;
+        showItemInfo = 1;
+        textSize = 12;
+        viewOptionsVersion = 1;
+    };
+    "FK_DefaultListViewSettings" =     {
+        calculateAllSizes = 0;
+        columns =         (
+                        {
+                ascending = 1;
+                identifier = name;
+                visible = 1;
+                width = 300;
+            },
+                        {
+                ascending = 0;
+                identifier = dateModified;
+                visible = 0;
+                width = 181;
+            },
+                        {
+                ascending = 0;
+                identifier = dateCreated;
+                visible = 0;
+                width = 181;
+            },
+                        {
+                ascending = 0;
+                identifier = size;
+                visible = 1;
+                width = 97;
+            },
+                        {
+                ascending = 1;
+                identifier = kind;
+                visible = 1;
+                width = 115;
+            },
+                        {
+                ascending = 1;
+                identifier = label;
+                visible = 0;
+                width = 100;
+            },
+                        {
+                ascending = 1;
+                identifier = version;
+                visible = 0;
+                width = 75;
+            },
+                        {
+                ascending = 1;
+                identifier = comments;
+                visible = 0;
+                width = 300;
+            },
+                        {
+                ascending = 0;
+                identifier = dateLastOpened;
+                visible = 0;
+                width = 200;
+            },
+                        {
+                ascending = 0;
+                identifier = shareOwner;
+                visible = 0;
+                width = 200;
+            },
+                        {
+                ascending = 0;
+                identifier = shareLastEditor;
+                visible = 0;
+                width = 200;
+            },
+                        {
+                ascending = 0;
+                identifier = dateAdded;
+                visible = 1;
+                width = 181;
+            }
+        );
+        iconSize = 16;
+        showIconPreview = 1;
+        sortColumn = dateAdded;
+        textSize = 13;
+        useRelativeDates = 1;
+        viewOptionsVersion = 1;
+    };
+    "FK_SidebarWidth" = 281;
+    "FK_StandardViewOptions2" =     {
+        ColumnViewOptions =         {
+            ArrangeBy = dnam;
+            ColumnShowFolderArrow = 1;
+            ColumnShowIcons = 1;
+            ColumnWidth = 245;
+            FontSize = 13;
+            PreviewDisclosureState = 1;
+            SharedArrangeBy = kipl;
+            ShowIconThumbnails = 1;
+            ShowPreview = 1;
+        };
+    };
+    "FK_StandardViewSettings" =     {
+        ExtendedListViewSettingsV2 =         {
+            calculateAllSizes = 0;
+            columns =             (
+                                {
+                    ascending = 1;
+                    identifier = name;
+                    visible = 1;
+                    width = 300;
+                },
+                                {
+                    ascending = 0;
+                    identifier = dateModified;
+                    visible = 1;
+                    width = 181;
+                },
+                                {
+                    ascending = 0;
+                    identifier = dateCreated;
+                    visible = 0;
+                    width = 181;
+                },
+                                {
+                    ascending = 0;
+                    identifier = size;
+                    visible = 1;
+                    width = 97;
+                },
+                                {
+                    ascending = 1;
+                    identifier = kind;
+                    visible = 1;
+                    width = 115;
+                },
+                                {
+                    ascending = 1;
+                    identifier = label;
+                    visible = 0;
+                    width = 100;
+                },
+                                {
+                    ascending = 1;
+                    identifier = version;
+                    visible = 0;
+                    width = 75;
+                },
+                                {
+                    ascending = 1;
+                    identifier = comments;
+                    visible = 0;
+                    width = 300;
+                },
+                                {
+                    ascending = 0;
+                    identifier = dateLastOpened;
+                    visible = 0;
+                    width = 200;
+                },
+                                {
+                    ascending = 0;
+                    identifier = shareOwner;
+                    visible = 0;
+                    width = 200;
+                },
+                                {
+                    ascending = 0;
+                    identifier = shareLastEditor;
+                    visible = 0;
+                    width = 200;
+                }
+            );
+            iconSize = 16;
+            showIconPreview = 1;
+            sortColumn = name;
+            textSize = 13;
+            useRelativeDates = 1;
+            viewOptionsVersion = 1;
+        };
+        IconViewSettings =         {
+            arrangeBy = none;
+            backgroundColorBlue = 1;
+            backgroundColorGreen = 1;
+            backgroundColorRed = 1;
+            backgroundType = 0;
+            gridOffsetX = 0;
+            gridOffsetY = 0;
+            gridSpacing = 54;
+            iconSize = 64;
+            labelOnBottom = 1;
+            showIconPreview = 1;
+            showItemInfo = 0;
+            textSize = 12;
+            viewOptionsVersion = 1;
+        };
+        ListViewSettings =         {
+            calculateAllSizes = 0;
+            columns =             {
+                comments =                 {
+                    ascending = 1;
+                    index = 7;
+                    visible = 0;
+                    width = 300;
+                };
+                dateCreated =                 {
+                    ascending = 0;
+                    index = 2;
+                    visible = 0;
+                    width = 181;
+                };
+                dateLastOpened =                 {
+                    ascending = 0;
+                    index = 8;
+                    visible = 0;
+                    width = 200;
+                };
+                dateModified =                 {
+                    ascending = 0;
+                    index = 1;
+                    visible = 1;
+                    width = 181;
+                };
+                kind =                 {
+                    ascending = 1;
+                    index = 4;
+                    visible = 1;
+                    width = 115;
+                };
+                label =                 {
+                    ascending = 1;
+                    index = 5;
+                    visible = 0;
+                    width = 100;
+                };
+                name =                 {
+                    ascending = 1;
+                    index = 0;
+                    visible = 1;
+                    width = 300;
+                };
+                size =                 {
+                    ascending = 0;
+                    index = 3;
+                    visible = 1;
+                    width = 97;
+                };
+                version =                 {
+                    ascending = 1;
+                    index = 6;
+                    visible = 0;
+                    width = 75;
+                };
+            };
+            iconSize = 16;
+            showIconPreview = 1;
+            sortColumn = name;
+            textSize = 13;
+            useRelativeDates = 1;
+            viewOptionsVersion = 1;
+        };
+        SettingsType = "FK_StandardViewSettings";
+    };
+    FXArrangeGroupViewBy = Name;
+    FXConnectToBounds = "{{597, 595}, {486, 231}}";
+    FXConnectToLastURL = "smb://100.126.224.126";
+    FXDesktopTouchBarUpgradedToTenTwelveOne = 1;
+    FXDesktopVolumePositions =     {
+        "100.126.224.126-1_0x1.7e5bcd2e417f5p+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 513;
+        };
+        "100.126.224.126_0x1.71391a0e2365dp+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-187";
+            yRelative = 289;
+        };
+        "100.126.224.126_0x1.7e5bcd2e417f5p+29" =         {
+            AnchorRelativeTo = 2;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = "-201";
+        };
+        "Antigravity IDE_0x1.7f1b5ep+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 65;
+        };
+        "Antigravity_0x1.7f64ec36690cep+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 289;
+        };
+        "CYMHD3_-0x1.d27e44p+29" =         {
+            AnchorRelativeTo = 2;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = "-89";
+        };
+        "ChatGPT Installer_0x1.8025bde8p+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 65;
+        };
+        "Claude_0x1.800d2c08p+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 177;
+        };
+        "Devin_0x1.7fe3c51p+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-187";
+            yRelative = 177;
+        };
+        "FDM_0x1.7fbdaa48p+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 289;
+        };
+        "Google Chrome_0x1.7fee831p+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 65;
+        };
+        "Install OrbStack v1.5.1_0x1.5dde5baafc3ebp+29" =         {
+            AnchorRelativeTo = 2;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = "-89";
+        };
+        "Install macOS Sonoma_0x1.7ec1ed88p+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 65;
+        };
+        "Microsoft Edge_0x1.7ffdb06p+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 177;
+        };
+        "NO NAME_-0x1.3c0b7ecp+29" =         {
+            AnchorRelativeTo = 2;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = "-201";
+        };
+        "NoMachine_0x1.7ff5f538p+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 401;
+        };
+        "OrbStack_0x1.805d3e1aeae1p+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-187";
+            yRelative = 65;
+        };
+        "OrbStack_0x1.8073b3100548bp+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 513;
+        };
+        "OrbStack_0x1.8074a44af28afp+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 513;
+        };
+        "OrbStack_0x1.807b56bce5f9ep+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 513;
+        };
+        "Orca 1.4.145_0x1.805946ap+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 513;
+        };
+        "SuperCmd 1.0.26_0x1.7f37fdb5e7c0ap+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 513;
+        };
+        "UltiMaker-Cura-5.13.0-macos-X64_0x1.7e4226cp+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 513;
+        };
+        "VS Code_0x1.805455bp+29" =         {
+            AnchorRelativeTo = 2;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = "-201";
+        };
+        "Warp_0x1.804c32dad9a36p+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 513;
+        };
+        "balenaEtcher_0x1.7da6ca38p+29" =         {
+            AnchorRelativeTo = 2;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = "-89";
+        };
+        "mac_0x1.7d1a423p+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 289;
+        };
+        "rustdesk-1.4.9_0x1.7fde153p+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 40;
+        };
+        "superwhisper_0x1.802c7aep+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 513;
+        };
+        "zorion_-0x1.d27e44p+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 513;
+        };
+        "zorion_0x1.8084f15p+29" =         {
+            AnchorRelativeTo = 1;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = 513;
+        };
+        "zorion_0x1.8084f1650829dp+29" =         {
+            AnchorRelativeTo = 2;
+            ScreenID = 0;
+            xRelative = "-65";
+            yRelative = "-201";
+        };
+    };
+    FXICloudDriveDesktop = 0;
+    FXICloudDriveDocuments = 0;
+    FXICloudDriveEnabled = 0;
+    FXICloudDriveFirstSyncDownComplete = 0;
+    FXICloudLoggedIn = 0;
+    "FXPreferencesWindow.Location" = "{{10, 536}, {377, 329}}";
+    FXPreferredSearchViewStyleVersion = "%00%00%00%01";
+    FXPreferredViewStyle = icnv;
+    FXQuickActionsConfigUpgradeLevel = 3;
+    FXRecentFolders =     (
+                {
+            "file-bookmark" = {length = 1536, bytes = 0x626f6f6b 00060000 00000510 40000000 ... d4040000 00000000 };
+            name = balenaEtcher;
+        },
+                {
+            "file-bookmark" = {length = 824, bytes = 0x626f6f6b 38030000 00000510 40000000 ... 04000000 00000000 };
+            name = Recents;
+        },
+                {
+            "file-bookmark" = {length = 664, bytes = 0x626f6f6b 98020000 00000510 40000000 ... 04000000 00000000 };
+            name = Downloads;
+        },
+                {
+            "file-bookmark" = {length = 664, bytes = 0x626f6f6b 98020000 00000510 40000000 ... 04000000 00000000 };
+            name = Documents;
+        },
+                {
+            "file-bookmark" = {length = 532, bytes = 0x626f6f6b 14020000 00000510 40000000 ... 04000000 00000000 };
+            name = Applications;
+        },
+                {
+            "file-bookmark" = {length = 620, bytes = 0x626f6f6b 6c020000 00000510 40000000 ... 04000000 00000000 };
+            name = Contents;
+        },
+                {
+            "file-bookmark" = {length = 664, bytes = 0x626f6f6b 98020000 00000510 40000000 ... 04000000 00000000 };
+            name = Resources;
+        },
+                {
+            "file-bookmark" = {length = 900, bytes = 0x626f6f6b 84030000 00000510 40000000 ... 04000000 00000000 };
+            name = E;
+        }
+    );
+    FXSidebarUpgradedToTenFourteen = 1;
+    FXSidebarUpgradedToTenTen = 1;
+    FXToolbarUpgradedToTenEight = 1;
+    FXToolbarUpgradedToTenNine = 2;
+    FXToolbarUpgradedToTenSeven = 1;
+    FavoriteTagNames =     (
+        "",
+        Red,
+        Orange,
+        Yellow,
+        Green,
+        Blue,
+        Purple,
+        Gray
+    );
+    LastTrashState = 1;
+    MountProgressWindowLocation = "{640, 265}";
+    "NSToolbar Configuration Browser" =     {
+        "TB Display Mode" = 2;
+        "TB Icon Size Mode" = 1;
+        "TB Is Shown" = 1;
+        "TB Size Mode" = 1;
+    };
+    NetworkViewSettings =     {
+        CustomViewStyleVersion = 1;
+        WindowState =         {
+            ContainerShowSidebar = 1;
+            ShowSidebar = 1;
+            ShowStatusBar = 0;
+            ShowTabView = 0;
+            ShowToolbar = 1;
+            WindowBounds = "{{260, 329}, {920, 436}}";
+        };
+    };
+    PackageViewSettings =     {
+        WindowState =         {
+            ContainerShowSidebar = 1;
+            ShowSidebar = 1;
+            ShowStatusBar = 0;
+            ShowTabView = 0;
+            ShowToolbar = 1;
+            WindowBounds = "{{260, 329}, {920, 436}}";
+        };
+    };
+    RecentMoveAndCopyDestinations =     (
+        "file:///Applications/",
+        "file:///Users/vijayyaso/Documents/",
+        "file:///Users/vijayyaso/Downloads/"
+    );
+    RecentsArrangeGroupViewBy = "Date Last Opened";
+    SearchRecentsSavedViewStyleVersion = "%00%00%00%01";
+    SearchRecentsViewSettings =     {
+        WindowState =         {
+            ContainerShowSidebar = 1;
+            ShowSidebar = 1;
+            ShowStatusBar = 0;
+            ShowTabView = 0;
+            ShowToolbar = 1;
+            WindowBounds = "{{260, 329}, {920, 436}}";
+        };
+    };
+    ShowExternalHardDrivesOnDesktop = 1;
+    ShowHardDrivesOnDesktop = 1;
+    ShowMountedServersOnDesktop = 1;
+    ShowRemovableMediaOnDesktop = 1;
+    ShowSidebar = 1;
+    SidebarDevicesSectionDisclosedState = 1;
+    SidebarPlacesSectionDisclosedState = 1;
+    SidebarShowingSignedIntoiCloud = 0;
+    SidebarShowingiCloudDesktop = 0;
+    SidebarWidth = 157;
+    StandardViewSettings =     {
+        ExtendedListViewSettingsV2 =         {
+            calculateAllSizes = 0;
+            columns =             (
+                                {
+                    ascending = 1;
+                    identifier = name;
+                    visible = 1;
+                    width = 300;
+                },
+                                {
+                    ascending = 0;
+                    identifier = dateModified;
+                    visible = 1;
+                    width = 181;
+                },
+                                {
+                    ascending = 0;
+                    identifier = dateCreated;
+                    visible = 0;
+                    width = 181;
+                },
+                                {
+                    ascending = 0;
+                    identifier = size;
+                    visible = 1;
+                    width = 97;
+                },
+                                {
+                    ascending = 1;
+                    identifier = kind;
+                    visible = 1;
+                    width = 115;
+                },
+                                {
+                    ascending = 1;
+                    identifier = label;
+                    visible = 0;
+                    width = 100;
+                },
+                                {
+                    ascending = 1;
+                    identifier = version;
+                    visible = 0;
+                    width = 75;
+                },
+                                {
+                    ascending = 1;
+                    identifier = comments;
+                    visible = 0;
+                    width = 300;
+                },
+                                {
+                    ascending = 0;
+                    identifier = dateLastOpened;
+                    visible = 0;
+                    width = 200;
+                },
+                                {
+                    ascending = 0;
+                    identifier = shareOwner;
+                    visible = 0;
+                    width = 200;
+                },
+                                {
+                    ascending = 0;
+                    identifier = shareLastEditor;
+                    visible = 0;
+                    width = 200;
+                }
+            );
+            iconSize = 16;
+            showIconPreview = 1;
+            sortColumn = name;
+            textSize = 13;
+            useRelativeDates = 1;
+            viewOptionsVersion = 1;
+        };
+        GalleryViewSettings =         {
+            arrangeBy = name;
+            iconSize = 48;
+            showIconPreview = 1;
+            viewOptionsVersion = 1;
+        };
+        IconViewSettings =         {
+            arrangeBy = none;
+            backgroundColorBlue = 1;
+            backgroundColorGreen = 1;
+            backgroundColorRed = 1;
+            backgroundType = 0;
+            gridOffsetX = 0;
+            gridOffsetY = 0;
+            gridSpacing = 54;
+            iconSize = 64;
+            labelOnBottom = 1;
+            showIconPreview = 1;
+            showItemInfo = 0;
+            textSize = 12;
+            viewOptionsVersion = 1;
+        };
+        ListViewSettings =         {
+            calculateAllSizes = 0;
+            columns =             {
+                comments =                 {
+                    ascending = 1;
+                    index = 7;
+                    visible = 0;
+                    width = 300;
+                };
+                dateCreated =                 {
+                    ascending = 0;
+                    index = 2;
+                    visible = 0;
+                    width = 181;
+                };
+                dateLastOpened =                 {
+                    ascending = 0;
+                    index = 8;
+                    visible = 0;
+                    width = 200;
+                };
+                dateModified =                 {
+                    ascending = 0;
+                    index = 1;
+                    visible = 1;
+                    width = 181;
+                };
+                kind =                 {
+                    ascending = 1;
+                    index = 4;
+                    visible = 1;
+                    width = 115;
+                };
+                label =                 {
+                    ascending = 1;
+                    index = 5;
+                    visible = 0;
+                    width = 100;
+                };
+                name =                 {
+                    ascending = 1;
+                    index = 0;
+                    visible = 1;
+                    width = 300;
+                };
+                size =                 {
+                    ascending = 0;
+                    index = 3;
+                    visible = 1;
+                    width = 97;
+                };
+                version =                 {
+                    ascending = 1;
+                    index = 6;
+                    visible = 0;
+                    width = 75;
+                };
+            };
+            iconSize = 16;
+            showIconPreview = 1;
+            sortColumn = name;
+            textSize = 13;
+            useRelativeDates = 1;
+            viewOptionsVersion = 1;
+        };
+        SettingsType = StandardViewSettings;
+    };
+    TagsCloudSerialNumber = 1;
+    TrashViewSettings =     {
+        CustomViewStyleVersion = 1;
+        IconViewSettings =         {
+            arrangeBy = none;
+            backgroundColorBlue = 1;
+            backgroundColorGreen = 1;
+            backgroundColorRed = 1;
+            backgroundType = 0;
+            gridOffsetX = 0;
+            gridOffsetY = 0;
+            gridSpacing = 54;
+            iconSize = 64;
+            labelOnBottom = 1;
+            scrollPositionX = 0;
+            scrollPositionY = 0;
+            showIconPreview = 1;
+            showItemInfo = 0;
+            textSize = 12;
+            viewOptionsVersion = 1;
+        };
+        WindowState =         {
+            ContainerShowSidebar = 1;
+            ShowSidebar = 1;
+            ShowStatusBar = 0;
+            ShowTabView = 0;
+            ShowToolbar = 1;
+            WindowBounds = "{{380, 441}, {920, 436}}";
+        };
+    };
+    ViewSettingsDictionary =     {
+        "Orange_Tag_ViewSettings" =         {
+            WindowState =             {
+                ContainerShowSidebar = 1;
+                ShowSidebar = 1;
+                ShowStatusBar = 0;
+                ShowTabView = 0;
+                ShowToolbar = 1;
+                WindowBounds = "{{380, 463}, {920, 436}}";
+            };
+        };
+    };
+}
+
+--- defaults read com.apple.universalaccess ---
+{
+    History =     {
+        MouseKeys =         (
+                        {
+                Date = "2026-07-13 03:56:51";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-13 03:57:00";
+                Reason = LoadingPrefsC;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-13 03:57:00";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-13 03:57:01";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-13 16:27:35";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-13 16:27:42";
+                Reason = LoadingPrefsC;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-13 16:27:42";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-13 16:27:42";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-13 16:29:53";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-17 15:55:11";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-17 16:04:47";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-17 16:35:01";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-17 16:48:28";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-17 16:57:52";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-17 17:09:51";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-17 17:14:56";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-20 10:49:42";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-20 23:07:51";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-20 23:07:51";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-21 14:22:12";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-21 20:37:12";
+                Reason = Reset;
+                State = 0;
+            },
+                        {
+                Date = "2026-07-23 20:52:40";
+                Reason = Reset;
+                State = 0;
+            }
+        );
+    };
+    closeViewCustomHotkeyKey =     {
+        "AX_ZOOM_FREEZE_PANNING" =         {
+            charCode = 65535;
+            keyCode = 65535;
+            modifiers = 0;
+        };
+        "AX_ZOOM_MONITOR_SELECTION" =         {
+            charCode = 65535;
+            keyCode = 65535;
+            modifiers = 0;
+        };
+        "AX_ZOOM_TEMP_DETACH" =         {
+            charCode = 65535;
+            keyCode = 65535;
+            modifiers = 1310720;
+        };
+        "AX_ZOOM_TEMP_TOGGLE" =         {
+            charCode = 65535;
+            keyCode = 65535;
+            modifiers = 786432;
+        };
+        "AX_ZOOM_TOGGLE_FS_AND_PIP" =         {
+            charCode = 102;
+            keyCode = 3;
+            modifiers = 1572864;
+        };
+    };
+    closeViewHotkeysEnabled = 0;
+    closeViewZoomDisplayID = 0;
+    closeViewZoomFactor = 1;
+    "com.apple.custommenu.apps" =     (
+        NSGlobalDomain
+    );
+    hoverTextEnabled = 0;
+    login = 0;
+    sessionChange = 0;
+}
+
+--- defaults read com.apple.symbolichotkeys ---
+{
+    AppleSymbolicHotKeys =     {
+        15 =         {
+            enabled = 0;
+        };
+        16 =         {
+            enabled = 0;
+        };
+        164 =         {
+            enabled = 1;
+            value =             {
+                parameters =                 (
+                    262144,
+                    4294705151
+                );
+                type = modifier;
+            };
+        };
+        17 =         {
+            enabled = 0;
+        };
+        18 =         {
+            enabled = 0;
+        };
+        19 =         {
+            enabled = 0;
+        };
+        20 =         {
+            enabled = 0;
+        };
+        21 =         {
+            enabled = 0;
+        };
+        22 =         {
+            enabled = 0;
+        };
+        23 =         {
+            enabled = 0;
+        };
+        24 =         {
+            enabled = 0;
+        };
+        25 =         {
+            enabled = 0;
+        };
+        26 =         {
+            enabled = 0;
+        };
+        60 =         {
+            enabled = 0;
+            value =             {
+                parameters =                 (
+                    32,
+                    49,
+                    262144
+                );
+                type = standard;
+            };
+        };
+        61 =         {
+            enabled = 0;
+            value =             {
+                parameters =                 (
+                    32,
+                    49,
+                    786432
+                );
+                type = standard;
+            };
+        };
+        64 =         {
+            enabled = 0;
+            value =             {
+                parameters =                 (
+                    32,
+                    49,
+                    1048576
+                );
+                type = standard;
+            };
+        };
+        65 =         {
+            enabled = 0;
+            value =             {
+                parameters =                 (
+                    32,
+                    49,
+                    1572864
+                );
+                type = standard;
+            };
+        };
+        79 =         {
+            enabled = 1;
+        };
+        80 =         {
+            enabled = 1;
+        };
+        81 =         {
+            enabled = 1;
+        };
+        82 =         {
+            enabled = 1;
+        };
+    };
+}
+
+--- defaults read com.apple.controlcenter ---
+{
+    "LastHeartbeatDateString.daily" = "2026-07-23T15:22:42Z";
+    "NSStatusItem Preferred Position Battery" = 211;
+    "NSStatusItem Preferred Position BentoBox" = 139;
+    "NSStatusItem Preferred Position NowPlaying" = 305;
+    "NSStatusItem Preferred Position ScreenMirroring" = 253;
+    "NSStatusItem Preferred Position WiFi" = 173;
+    "NSStatusItem Visible Battery" = 1;
+    "NSStatusItem Visible BentoBox" = 1;
+    "NSStatusItem Visible Clock" = 1;
+    "NSStatusItem Visible Item-0" = 0;
+    "NSStatusItem Visible Item-1" = 0;
+    "NSStatusItem Visible Item-2" = 0;
+    "NSStatusItem Visible Item-3" = 0;
+    "NSStatusItem Visible Item-4" = 0;
+    "NSStatusItem Visible NowPlaying" = 0;
+    "NSStatusItem Visible ScreenMirroring" = 1;
+    "NSStatusItem Visible WiFi" = 1;
+}
+
+--- defaults read -g (NSGlobalDomain) ---
+{
+    AKLastIDMSEnvironment = 0;
+    AKLastLocale = "en_US@rg=inzzzz";
+    AppleAntiAliasingThreshold = 4;
+    AppleInterfaceStyle = Dark;
+    AppleLanguages =     (
+        "en-US"
+    );
+    AppleLanguagesSchemaVersion = 4000;
+    AppleLocale = "en_US@rg=inzzzz";
+    AppleMenuBarVisibleInFullscreen = 0;
+    AppleMiniaturizeOnDoubleClick = 0;
+    "KB_DoubleQuoteOption" = "\\U201cabc\\U201d";
+    "KB_SingleQuoteOption" = "\\U2018abc\\U2019";
+    "KB_SpellingLanguage" =     {
+        "KB_SpellingLanguageIsAutomatic" = 1;
+    };
+    NSAutomaticCapitalizationEnabled = 1;
+    NSAutomaticPeriodSubstitutionEnabled = 1;
+    NSLinguisticDataAssetsRequestLastInterval = 86400;
+    NSLinguisticDataAssetsRequestTime = "2026-07-23 15:23:47 +0000";
+    NSLinguisticDataAssetsRequested =     (
+        en
+    );
+    NSLinguisticDataAssetsRequestedByChecker =     (
+        en
+    );
+    NSNavPanelFileLastListModeForOpenModeKey = 3;
+    NSNavPanelFileListModeForOpenMode2 = 3;
+    NSPreferredWebServices =     {
+        NSWebServicesProviderWebSearch =         {
+            NSDefaultDisplayName = Google;
+            NSProviderIdentifier = "com.google.www";
+        };
+    };
+    NSSpellCheckerDictionaryContainerTransitionComplete = 1;
+    NSSpellCheckerInputAnalyticsTime = "2026-07-23 15:23:52 +0000";
+    NSUserDictionaryReplacementItems =     (
+                {
+            on = 1;
+            replace = omw;
+            with = "On my way!";
+        }
+    );
+    NSUserQuotesArray =     (
+        "\\U201c",
+        "\\U201d",
+        "\\U2018",
+        "\\U2019"
+    );
+    "_HIHideMenuBar" = 0;
+    "com.apple.finder.SyncExtensions" =     {
+        collaborationMap =         {
+        };
+        dirMap =         {
+        };
+    };
+    "com.apple.sound.beep.flash" = 0;
+    "com.apple.springing.delay" = "0.5";
+    "com.apple.springing.enabled" = 1;
+    "com.apple.trackpad.forceClick" = 1;
+    "com.apple.trackpad.scaling" = "0.875";
+}
+
+--- defaults -currentHost read -g ---
+{
+    "com.apple.mouse.tapBehavior" = 1;
+    "com.apple.trackpad.enableSecondaryClick" = 1;
+    "com.apple.trackpad.fiveFingerPinchSwipeGesture" = 2;
+    "com.apple.trackpad.fourFingerHorizSwipeGesture" = 2;
+    "com.apple.trackpad.fourFingerPinchSwipeGesture" = 2;
+    "com.apple.trackpad.fourFingerVertSwipeGesture" = 2;
+    "com.apple.trackpad.momentumScroll" = 1;
+    "com.apple.trackpad.pinchGesture" = 1;
+    "com.apple.trackpad.rotateGesture" = 1;
+    "com.apple.trackpad.scrollBehavior" = 2;
+    "com.apple.trackpad.threeFingerDragGesture" = 1;
+    "com.apple.trackpad.threeFingerHorizSwipeGesture" = 0;
+    "com.apple.trackpad.threeFingerTapGesture" = 0;
+    "com.apple.trackpad.threeFingerVertSwipeGesture" = 0;
+    "com.apple.trackpad.twoFingerDoubleTapGesture" = 1;
+    "com.apple.trackpad.twoFingerFromRightEdgeSwipeGesture" = 3;
+    "com.apple.trackpad.version" = 5;
+}
+
+===== Thermal state and CPU speed limit (pmset -g therm) =====
+Note: No thermal warning level has been recorded
+Note: No performance warning level has been recorded
+2026-07-23 21:29:35 +0530 CPU Power notify
+	CPU_Scheduler_Limit 	= 100
+	CPU_Available_CPUs 	= 8
+	CPU_Speed_Limit 	= 100
+
+===== Power management settings (pmset -g custom) =====
+Battery Power:
+ lidwake              1
+ autopoweroff         0
+ standbydelayhigh     86400
+ autopoweroffdelay    259200
+ proximitywake        0
+ standby              0
+ standbydelaylow      10800
+ ttyskeepawake        1
+ hibernatemode        0
+ gpuswitch            2
+ powernap             0
+ hibernatefile        /var/vm/sleepimage
+ highstandbythreshold 50
+ displaysleep         2
+ womp                 0
+ networkoversleep     0
+ sleep                1
+ tcpkeepalive         1
+ halfdim              1
+ lessbright           1
+ acwake               0
+ disksleep            10
+AC Power:
+ lidwake              1
+ autopoweroff         0
+ standbydelayhigh     86400
+ autopoweroffdelay    259200
+ proximitywake        1
+ standby              0
+ standbydelaylow      10800
+ ttyskeepawake        1
+ hibernatemode        0
+ powernap             1
+ gpuswitch            2
+ hibernatefile        /var/vm/sleepimage
+ highstandbythreshold 50
+ womp                 1
+ displaysleep         10
+ networkoversleep     0
+ sleep                1
+ tcpkeepalive         1
+ halfdim              1
+ acwake               0
+ disksleep            10
+
+===== Display and GPU info =====
+Graphics/Displays:
+
+    Intel Iris Pro:
+
+      Chipset Model: Intel Iris Pro
+      Type: GPU
+      Bus: Built-In
+      VRAM (Dynamic, Max): 1536 MB
+      Vendor: Intel
+      Device ID: 0x0d26
+      Revision ID: 0x0008
+      Metal Support: Metal 2
+      Displays:
+        Color LCD:
+          Display Type: Built-In Retina LCD
+          Resolution: 2880 x 1800 Retina
+          Framebuffer Depth: 24-Bit Color (ARGB8888)
+          Main Display: Yes
+          Mirror: Off
+          Online: Yes
+          Automatically Adjust Brightness: Yes
+          Connection Type: Internal
+
+
+===== Battery health (cycle count / condition) =====
+      Charge Information:
+          The battery’s charge is below the warning level: No
+          Fully Charged: No
+          Full Charge Capacity (mAh): 8630
+          State of Charge (%): 69
+          Cycle Count: 45
+          Condition: Normal
+    AC Charger Information:
+      Wattage (W): 60
+
+===== Fan speeds and CPU temperature under macOS (needs admin password) =====
+This last section asks for your macOS password (sudo). Ctrl-C here is fine - everything above is already saved.
+Fan: 3882 rpm
+CPU die temperature: 91.79 C
+
+
+===== Login / background items (sudo sfltool dumpbtm) =====
+Name: GoogleUpdater
+Name: NoMachine
+Name: NoMachine S.a.r.l.
+Name: NoMachine Uninstall
+Name: OpenCore-Patcher
+Name: OrbStack
+Name: RustDesk
+Name: SuperCmd
+Name: Tailscale
+Name: TailscaleLoginItemHelper-macsys
+Name: Warp
+Name: dev.orbstack.OrbStack.privhelper
+Name: nxserver
+Name: nxuninstall.sh
+Name: open
+Name: rm
+Name: sh
+Name: superwhisper
+
+
+===== FileVault disk encryption status (sudo fdesetup) =====
+FileVault is Off.
+
+===== NVRAM boot-args =====
+boot-args	keepsyms=1 debug=0x100 -lilubetaall ipc_control_port_options=0 -nokcmismatchpanic
+
+===== System sleep / network time (sudo systemsetup) =====
+Computer Sleep: after 1 minutes
+Display Sleep: after 10 minutes
+Hard Disk Sleep: after 10 minutes
+Wake On Network Access: On
+Network Time: On
+Network Time Server: time.asia.apple.com
+Remote Login: Off
+
+===== Preferred Wi-Fi networks =====
+(removed before public push)
+
+Done. Values saved to: /Users/vijayyaso/Documents/Developments/mac-settings-extractor/mac-values.txt
+Either 'git add mac-values.txt && git commit -m "add extracted values" && git push'
+or copy-paste the contents back to Claude on the Linux side.
