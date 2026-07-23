@@ -154,11 +154,26 @@ def find_touchpad():
     return None
 
 
-def wayland_session_present():
+def wayland_session_present(wait=15.0):
+    """True if a Wayland session socket exists, polling up to `wait` seconds.
+
+    The daemon can start before the compositor has created its socket (seen
+    in the wild: a boot where the service won the race and silently picked
+    passive mode on a Wayland desktop — no grab, so GNOME's native 3-finger
+    swipe fired on top of every drag). Waiting briefly makes mode detection
+    immune to login-time ordering; on a real Xorg session this only delays
+    daemon startup once, by `wait` seconds.
+    """
     runtime_dir = os.environ.get('XDG_RUNTIME_DIR')
     if not runtime_dir:
         return False
-    return bool(glob.glob(os.path.join(runtime_dir, 'wayland-*')))
+    deadline = time.monotonic() + wait
+    while True:
+        if glob.glob(os.path.join(runtime_dir, 'wayland-*')):
+            return True
+        if time.monotonic() >= deadline:
+            return False
+        time.sleep(0.5)
 
 
 def single_instance_lock():
