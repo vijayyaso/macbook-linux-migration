@@ -45,14 +45,28 @@ from evdev import UInput, ecodes
 # finger velocity instead of a hard two-step switch.
 #   gain = BASE_GAIN * (1 + (v / GAIN_REF_SPEED) ** GAIN_EXPONENT)
 # v is finger speed in touchpad units/s (bcm5974: ~97 units per mm).
-BASE_GAIN = 0.13          # gain at near-zero speed: slow finger = precision
+BASE_GAIN = 0.10          # gain at near-zero speed: slow finger = precision
 GAIN_REF_SPEED = 3500.0   # units/s where gain has roughly doubled
 GAIN_EXPONENT = 1.1       # curve steepness
-MAX_GAIN = 0.55           # cap so flicks stay controllable
+MAX_GAIN = 0.42           # cap so flicks stay controllable
 VELOCITY_SMOOTHING = 0.5  # EMA factor for velocity (jitter suppression)
 
-DRAG_START_DISTANCE = 20  # units (~0.2 mm) of motion before button press —
-                          # a still 3-finger tap never fires a stray click
+DRAG_START_DISTANCE = 80  # units (~0.8 mm) of motion before button press —
+                          # a still 3-finger tap never fires a stray click.
+                          # libinput's own tap/drag disambiguation uses a
+                          # 1.3 mm per-finger move threshold (formerly 3 mm;
+                          # see DEFAULT_TAP_MOVE_THRESHOLD in
+                          # evdev-mt-touchpad-tap.c) before motion counts as
+                          # intentional rather than the natural sub-mm
+                          # settling wobble of landing three fingers at once.
+                          # We track the 3-finger centroid instead of a
+                          # single finger, which averages out independent
+                          # per-finger jitter, so a smaller-than-libinput
+                          # threshold is used — but the old 20-unit value
+                          # was small enough that ordinary landing wobble
+                          # alone could cross it in the very first frame,
+                          # turning most quick taps into a phantom
+                          # click-and-immediately-release.
 DRAG_START_HOLD = 0.25    # s of deliberate stationary hold also grabs
 DRAG_RELEASE_DELAY = 0.25 # s frozen (fingers lifted) before the drag ends
 RESYNC_GRACE = 0.08       # s to wait before re-showing leftover fingers to
@@ -91,6 +105,35 @@ BUTTON_CODES = (ecodes.BTN_LEFT, ecodes.BTN_RIGHT, ecodes.BTN_MIDDLE)
 
 ABS_X = ecodes.ABS_MT_POSITION_X
 ABS_Y = ecodes.ABS_MT_POSITION_Y
+ABS_MAJOR = ecodes.ABS_MT_TOUCH_MAJOR
+ABS_MINOR = ecodes.ABS_MT_TOUCH_MINOR
+
+# Apple vendor IDs seen on internal trackpads (0x05AC) and some Bluetooth
+# accessories re-badged under a newer vendor ID (0x004C).
+APPLE_VENDOR_IDS = (0x05AC, 0x004C)
+# Products libinput's own udev hwdb (quirks/50-system-apple.quirks)
+# recognizes as external Magic Trackpads, which get a lower palm-size
+# threshold than the internal/built-in laptop trackpad.
+APPLE_MAGIC_TRACKPAD_PRODUCTS = (0x030E, 0x0265, 0x0324)
+
+
+def palm_size_threshold(dev):
+    """Raw ABS_MT_TOUCH_MAJOR/MINOR value above which libinput's own
+    AttrPalmSizeThreshold quirk (see quirks/50-system-apple.quirks in the
+    libinput source) treats a contact as a palm rather than a finger, for
+    the handful of Apple touchpad models it recognizes. Returns None when
+    the device isn't a known match, i.e. palm-size filtering stays off —
+    the raw touch-major/minor scale is hardware-specific, so guessing a
+    threshold for unrecognized hardware would be worse than not filtering.
+    """
+    vendor = dev.info.vendor
+    if vendor not in APPLE_VENDOR_IDS:
+        return None
+    if dev.info.product in APPLE_MAGIC_TRACKPAD_PRODUCTS:
+        return 900
+    if dev.info.bustype == ecodes.BUS_USB:
+        return 1600
+    return None
 
 
 def find_touchpad():
@@ -140,6 +183,22 @@ def main():
     print(f'Touchpad: {touchpad.name} ({touchpad.path})')
 
     proxy_mode = wayland_session_present()
+
+    palm_threshold = palm_size_threshold(touchpad)
+    if palm_threshold is not None:
+        print(f'Palm-size rejection: contacts over {palm_threshold} '
+              f'touch-major/minor units are excluded from finger counting')
+
+    def is_palm(axes):
+        # A large touch-major/minor contact is a palm heel, not a finger —
+        # excluded from OUR OWN 3-finger arm/drag decisions only. This is
+        # separate from (and in passive/idle frames redundant with) any
+        # filtering libinput itself applies on the compositor side, since
+        # our gesture state machine reads the raw device before libinput
+        # ever sees it.
+        return (palm_threshold is not None
+                and (axes.get(ABS_MAJOR, 0) > palm_threshold
+                     or axes.get(ABS_MINOR, 0) > palm_threshold))
 
     mouse = UInput(
         {ecodes.EV_KEY: [ecodes.BTN_LEFT],
@@ -199,7 +258,9 @@ def main():
         nonlocal res_x, res_y, v_ema
         pending = False
         dragging = True
-        drag_slots = frozenset(slots.keys())
+        # exclude a palm heel resting alongside the 3 real fingers — it
+        # would otherwise get adopted as one of the tracked drag slots
+        drag_slots = frozenset(s for s, v in slots.items() if not is_palm(v))
         prev_pos = slot_points(drag_slots)
         prev_t = t
         res_x = res_y = 0.0
@@ -401,6 +462,13 @@ def main():
 
                 # --- end of one hardware frame (SYN_REPORT) ---
                 n = len(slots)
+                # palm-filtered view, used only for OUR 3-finger arm/drag
+                # decisions below — clone/passthrough bookkeeping keeps
+                # using the raw n and slots above, since the compositor
+                # does its own (correct) palm filtering downstream
+                finger_slots = frozenset(s for s, v in slots.items()
+                                          if not is_palm(v))
+                real_n = len(finger_slots)
                 t = event.sec + event.usec / 1e6
 
                 if dragging:
@@ -414,10 +482,10 @@ def main():
                         # edge) are ignored completely.
                         release_time = None
                         steer_drag(t)
-                    elif n == 3:
+                    elif real_n == 3:
                         # a fresh threesome (fingers re-placed during
                         # drag lock): adopt it and continue the drag
-                        drag_slots = frozenset(slots.keys())
+                        drag_slots = finger_slots
                         prev_pos = slot_points(drag_slots)
                         prev_t = t
                         release_time = None
@@ -429,7 +497,7 @@ def main():
                         pending_motion.clear()
                         if release_time is None:
                             release_time = time.monotonic()
-                elif n >= 4 or four_latch:
+                elif real_n >= 4 or four_latch:
                     # 4-finger gesture: since 3 fingers are reserved for
                     # the drag, replay this to the compositor as a
                     # 3-finger swipe by forwarding three of the real
@@ -441,12 +509,18 @@ def main():
                     if proxy_mode:
                         suppressed = True
                         resync_at = None
-                        if n >= 4:
+                        # real_n (palm-filtered), like the 3-finger arm
+                        # below: 3 fingers + a palm heel is raw n == 4 but
+                        # must arm a DRAG, not get replayed to the desktop
+                        # as a synthetic 3-finger swipe (which bypasses the
+                        # compositor's own palm filter and switches
+                        # workspaces mid-drag)
+                        if real_n >= 4:
                             four_latch = True
-                            cx = sum(v.get(ABS_X, 0)
-                                     for v in slots.values()) / n
-                            cy = sum(v.get(ABS_Y, 0)
-                                     for v in slots.values()) / n
+                            cx = sum(slots[s].get(ABS_X, 0)
+                                     for s in finger_slots) / real_n
+                            cy = sum(slots[s].get(ABS_Y, 0)
+                                     for s in finger_slots) / real_n
                             if four_prev is None:
                                 four_cum = 0.0
                             else:
@@ -493,7 +567,7 @@ def main():
                                 # ghost tap at swipe start.
                                 keep = sorted(set(clone_slots)
                                               & slots.keys())
-                                extra = [s for s in sorted(slots)
+                                extra = [s for s in sorted(finger_slots)
                                          if s not in clone_slots]
                                 tracked = (keep + extra)[:3]
                                 pairs = []
@@ -558,12 +632,19 @@ def main():
                                 four_latch = False
                                 suppressed = False
                                 resync_clone()
-                elif n == 3:
+                elif real_n == 3:
+                    # real_n (not raw n) gates this: e.g. 2 real fingers
+                    # plus a palm heel is 3 raw contacts but only 2 real
+                    # ones, and must NOT arm — it falls through to the
+                    # else branch below instead, same as any other 2-finger
+                    # touch. Whenever this branch does fire, all 3 slots in
+                    # finger_slots are confirmed real (no palm to skew the
+                    # arm centroid).
                     if proxy_mode:
                         suppressed = True
                         resync_at = None
-                    cx = sum(v.get(ABS_X, 0) for v in slots.values()) / 3
-                    cy = sum(v.get(ABS_Y, 0) for v in slots.values()) / 3
+                    cx = sum(slots[s].get(ABS_X, 0) for s in finger_slots) / 3
+                    cy = sum(slots[s].get(ABS_Y, 0) for s in finger_slots) / 3
                     if not pending:
                         # fingers just arrived: arm, don't click yet
                         pending = True

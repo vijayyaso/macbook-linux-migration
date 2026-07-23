@@ -40,8 +40,12 @@ Details that make it feel right:
   the pad edge mid-drag) are ignored entirely. Lifting a tracked finger
   freezes the drag in place; re-placing three fingers within the
   drag-lock window resumes it, otherwise it ends.
+- **Palm-size rejection** (recognized Apple trackpads) — a palm heel
+  resting alongside two real fingers won't be miscounted as the third and
+  arm a drag; the size thresholds match libinput's own hwdb quirks for
+  the same hardware.
 - **Dead zone + hold-to-grab** — a still 3-finger tap never fires a stray
-  click; moving ~0.2 mm or holding ¼ s engages the drag.
+  click; moving ~0.8 mm or holding ¼ s engages the drag.
 - **Hardware identity passthrough** — the clone inherits the real
   vendor/product IDs so libinput applies the correct hardware quirks
   (e.g. Apple touchpads' light-touch filtering).
