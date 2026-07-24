@@ -1,0 +1,7 @@
+{
+  "uuid": "wake-veil@vijayyaso",
+  "name": "Wake Veil",
+  "description": "Mac-like wake: cover the screen with a blurred veil across suspend/resume and fade it out once the desktop has settled.",
+  "shell-version": ["46"],
+  "version": 1
+}

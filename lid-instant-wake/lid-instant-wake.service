@@ -1,0 +1,10 @@
+[Unit]
+Description=Mac-like lid behavior: instant wake on short closes, deep sleep after 15 min
+
+[Service]
+ExecStart=%h/.local/bin/lid-instant-wake
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target

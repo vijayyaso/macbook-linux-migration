@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+# Webcam-based auto-brightness for MacBookPro11,4 on Linux.
+# The real ambient light sensor sits on the camera board and only Apple's
+# macOS camera driver can read it; Linux's applesmc/acpi-als always report 0.
+# So we sample the webcam itself as a crude lux meter.
+# Note: the camera's green LED blinks briefly on each sample (hardwired).
+#
+# If the user changed brightness manually since our last adjustment, the
+# difference is learned as a persistent offset so we never fight the user.
+import subprocess, sys, re, json, os
+
+MIN_PCT, MAX_PCT = 5, 100
+HYSTERESIS = 8               # only adjust if change is >= 8 points
+STATE = os.path.expanduser("~/.local/state/webcam-autobrightness.json")
+
+def get_luma():
+    raw = subprocess.run(
+        ["ffmpeg", "-hide_banner", "-loglevel", "error", "-f", "v4l2",
+         "-i", "/dev/video0", "-frames:v", "1",
+         "-vf", "scale=64:36,format=gray", "-f", "rawvideo", "-"],
+        capture_output=True, timeout=20).stdout
+    if not raw:
+        sys.exit("no frame from webcam (camera busy or driver not loaded)")
+    return sum(raw) // len(raw)
+
+def gdbus(method, *extra):
+    return subprocess.run(
+        ["gdbus", "call", "--session",
+         "--dest", "org.gnome.SettingsDaemon.Power",
+         "--object-path", "/org/gnome/SettingsDaemon/Power",
+         "--method", "org.freedesktop.DBus.Properties." + method,
+         "org.gnome.SettingsDaemon.Power.Screen", "Brightness", *extra],
+        capture_output=True, text=True, timeout=10).stdout
+
+state = {"last_set": None, "offset": 0}
+try:
+    with open(STATE) as f:
+        state.update(json.load(f))
+except (OSError, ValueError):
+    pass
+
+luma = get_luma()                      # 0 (dark) .. 255 (bright)
+m = re.search(r"(\d+)", gdbus("Get"))
+current = int(m.group(1)) if m else -1
+
+# User moved the brightness since we last set it -> learn their preference.
+if state["last_set"] is not None and current >= 0 and current != state["last_set"]:
+    base = max(MIN_PCT, min(MAX_PCT, int(20 + luma * 0.5)))
+    state["offset"] = current - base
+    state["last_set"] = current
+    os.makedirs(os.path.dirname(STATE), exist_ok=True)
+    with open(STATE, "w") as f:
+        json.dump(state, f)
+    print(f"user set {current}% themselves; learned offset {state['offset']:+d}, not touching")
+    sys.exit(0)
+
+target = max(MIN_PCT, min(MAX_PCT, int(20 + luma * 0.5) + state["offset"]))
+if current >= 0 and abs(target - current) >= HYSTERESIS:
+    gdbus("Set", f"<int32 {target}>")
+    state["last_set"] = target
+    print(f"luma={luma} offset={state['offset']:+d} brightness {current}% -> {target}%")
+else:
+    state["last_set"] = current
+    print(f"luma={luma} offset={state['offset']:+d} stays at {current}% (target {target}%)")
+os.makedirs(os.path.dirname(STATE), exist_ok=True)
+with open(STATE, "w") as f:
+    json.dump(state, f)

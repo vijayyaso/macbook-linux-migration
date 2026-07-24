@@ -1,0 +1,8 @@
+// Allow the lid-instant-wake user service (runs outside the session scope)
+// to trigger suspend without an interactive auth prompt.
+polkit.addRule(function(action, subject) {
+    if (action.id.indexOf("org.freedesktop.login1.suspend") == 0 &&
+        subject.user == "vijayyaso") {
+        return polkit.Result.YES;
+    }
+});

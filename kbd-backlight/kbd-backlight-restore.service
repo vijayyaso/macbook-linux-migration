@@ -1,0 +1,18 @@
+[Unit]
+Description=Restore MacBook keyboard backlight level at login
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=oneshot
+# Wait for gnome-settings-daemon to finish its own backlight handling,
+# otherwise it overwrites us on a machine whose ambient light sensor is dead.
+# Set twice (20s and 40s after login): after a hard crash GNOME restores the
+# stale value late in session startup and can overwrite a single early set.
+ExecStartPre=/bin/sleep 20
+ExecStart=/usr/bin/gdbus call --system --dest org.freedesktop.UPower --object-path /org/freedesktop/UPower/KbdBacklight --method org.freedesktop.UPower.KbdBacklight.SetBrightness 135
+ExecStart=/bin/sleep 20
+ExecStart=/usr/bin/gdbus call --system --dest org.freedesktop.UPower --object-path /org/freedesktop/UPower/KbdBacklight --method org.freedesktop.UPower.KbdBacklight.SetBrightness 135
+
+[Install]
+WantedBy=graphical-session.target

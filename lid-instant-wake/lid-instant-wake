@@ -1,0 +1,108 @@
+#!/usr/bin/env python3
+"""Mac-like lid behavior for the MacBookPro11,4.
+
+Short lid closes: display + keyboard backlight off instantly, machine stays
+awake so reopening the lid brings the screen back in well under a second.
+Lid closed longer than the battery-aware delay (60 min on AC, 15 min on
+battery): real suspend (deep S3), which wakes on lid-open in ~5-12s via the
+firmware path — like a Mac coming out of standby. Tip: tapping a key right
+after opening the lid wakes faster than the lid sensor itself.
+
+Managed by the user unit lid-instant-wake.service.
+"""
+import subprocess
+import time
+
+# Minutes of lid-closed before dropping into deep sleep (battery-aware,
+# like macOS standbydelayhigh/low): generous on AC, conservative on battery.
+DELAY_AC_MIN = 60
+DELAY_BAT_MIN = 15
+
+LID = "/proc/acpi/button/lid/LID0/state"
+KBD = "/sys/class/leds/smc::kbd_backlight/brightness"
+AC = "/sys/class/power_supply/ADP1/online"
+
+
+def delay_minutes() -> int:
+    try:
+        with open(AC) as f:
+            return DELAY_AC_MIN if f.read().strip() == "1" else DELAY_BAT_MIN
+    except OSError:
+        return DELAY_BAT_MIN
+
+
+def lid_open() -> bool:
+    try:
+        with open(LID) as f:
+            return "open" in f.read()
+    except OSError:
+        return True
+
+
+def run(*cmd):
+    subprocess.run(cmd, check=False,
+                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+
+def set_dpms(mode: int):
+    # org.gnome.Mutter.DisplayConfig PowerSaveMode: 0 = on, 3 = off
+    run("busctl", "--user", "set-property",
+        "org.gnome.Mutter.DisplayConfig", "/org/gnome/Mutter/DisplayConfig",
+        "org.gnome.Mutter.DisplayConfig", "PowerSaveMode", "i", str(mode))
+
+
+def kbd_get() -> int:
+    try:
+        with open(KBD) as f:
+            return int(f.read().strip())
+    except (OSError, ValueError):
+        return 0
+
+
+def kbd_set(value: int):
+    # UPower is allowed to set the keyboard backlight for console users
+    run("busctl", "call", "org.freedesktop.UPower",
+        "/org/freedesktop/UPower/KbdBacklight",
+        "org.freedesktop.UPower.KbdBacklight",
+        "SetBrightness", "i", str(value))
+
+
+def main():
+    saved_kbd = 0
+    was_open = lid_open()
+    closed_at = None
+
+    while True:
+        time.sleep(0.25)
+        is_open = lid_open()
+
+        if is_open == was_open:
+            if not is_open and closed_at is not None \
+                    and time.time() - closed_at >= delay_minutes() * 60:
+                # Lid has been closed long enough: real deep sleep.
+                # closed_at is cleared first so a non-lid wake (e.g. power
+                # button with the lid still closed) doesn't insta-resuspend.
+                closed_at = None
+                # Re-enable the display first (lid is closed, nobody sees it):
+                # entering S3 with DPMS off delays panel light-up on resume,
+                # since it can only be undone after this process thaws.
+                set_dpms(0)
+                time.sleep(0.6)
+                run("systemctl", "suspend")
+            continue
+
+        was_open = is_open
+        if not is_open:  # lid just closed
+            saved_kbd = kbd_get()
+            kbd_set(0)
+            set_dpms(3)
+            closed_at = time.time()
+        else:  # lid just opened
+            closed_at = None
+            set_dpms(0)
+            if saved_kbd:
+                kbd_set(saved_kbd)
+
+
+if __name__ == "__main__":
+    main()

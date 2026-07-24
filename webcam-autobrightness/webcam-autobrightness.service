@@ -1,0 +1,6 @@
+[Unit]
+Description=Adjust screen brightness from webcam light level
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/webcam-autobrightness
