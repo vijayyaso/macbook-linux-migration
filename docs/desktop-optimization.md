@@ -75,6 +75,25 @@ gsettings set org.gnome.shell.extensions.user-theme name ''
 gnome-extensions disable blur-my-shell@aunetx
 ```
 
+## 5. Round 2 — from community research (Arch Wiki, forums, Reddit)
+
+- **`noatime` on the root ext4 mount** (`/etc/fstab`, was `relatime`) — stops
+  metadata writes on every file read.
+- **profile-sync-daemon** (`apt install profile-sync-daemon`) — keeps the
+  Chrome profile in tmpfs (overlayfs mode) and syncs to disk hourly/at logout;
+  snappier browser, far fewer disk writes. Config:
+  `~/.config/psd/psd.conf` → `USE_OVERLAYFS="yes"`, `BROWSERS="google-chrome"`,
+  plus a NOPASSWD sudoers entry for `/usr/bin/psd-overlay-helper`.
+  Enabled as a user service; activates at next login (browser must not be
+  running when it first starts).
+- **I/O scheduler**: verified `none` on the NVMe — correct per the Arch Wiki
+  (BFQ/deadline only help SATA/HDD).
+- **Wishlist — sched-ext**: the kernel has `CONFIG_SCHED_CLASS_EXT=y`, so
+  pluggable responsiveness schedulers (`scx_lavd`, `scx_bpfland`) would run,
+  but the `scx` userland tools aren't packaged for Ubuntu 24.04/Zorin 18 —
+  revisit when packaged (they keep the GUI responsive at 100% CPU load,
+  the failure mode this laptop hits most).
+
 ## Already in place (verified, no action needed)
 
 zram (7.7 G, prio 100) with swappiness 180 and `vm.page-cluster=0`; MGLRU
