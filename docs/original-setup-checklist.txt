@@ -1,0 +1,15 @@
+Set up this fresh Zorin OS install on a MacBook Pro Retina 15" Mid-2015 (i7-4980HQ, Iris Pro only, 16GB RAM, Crucial P310 NVMe via adapter). Work through these in order, verify each step works before moving on, and fix any errors you hit:
+
+1. Thermals & power: Install and enable mbpfan, thermald, and TLP with sane defaults for this MacBook model. Confirm all three services are running. Disable hibernation/suspend-to-disk (suspend-to-RAM is fine).
+
+2. macOS-style desktop: Install GNOME Tweaks and Extension Manager. Set up: a macOS-like bottom dock with autohide (Dash to Dock), window buttons on the left in close/minimize/maximize order, WhiteSur GTK theme + WhiteSur icon theme, and natural scrolling. Keep it tasteful, no broken extensions.
+
+3. Dev stack: Install git, build-essential, Node.js LTS via nvm, and Python3 with pip and venv.
+
+4. Apps: Install Telegram Desktop, LocalSend, Tailscale (enable the service, I'll authenticate myself), QGIS (latest stable from the official QGIS repo, not the old distro version), and NoMachine (download the latest .deb from nomachine.com). Pin web.whatsapp.com as a standalone web app in the dock.
+
+5. MacBook niceties: Make sure the webcam (facetimehd) works, keyboard backlight and screen brightness Fn keys work, and battery charge status shows correctly. Fix anything that doesn't.
+
+6. Housekeeping: Enable the firewall (ufw, allow LocalSend and NoMachine ports), enable fstrim.timer for the SSD, and set up unattended security updates.
+
+At the end, give me a summary of what was installed, anything that failed, and reboot recommendations.

@@ -14,10 +14,11 @@ describe the workaround chosen instead.
 |---|---|
 | [`lid-instant-wake/`](lid-instant-wake/) | Mac-like lid behavior: instant wake for short lid closes, real deep sleep after a battery-aware delay (60 min on AC / 15 min on battery, like macOS `standbydelay`). Also turns the keyboard backlight off while closed. |
 | [`wake-veil-extension/`](wake-veil-extension/) | GNOME extension: smooth macOS-style fade-from-black when waking from deep sleep, instead of an abrupt pop-in. |
-| [`three-finger-drag/`](three-finger-drag/) | macOS-style three-finger drag on the touchpad (Wayland, uinput proxy daemon). |
+| [`three-finger-drag/`](three-finger-drag/) | macOS-style three-finger drag on the touchpad (Wayland, uinput proxy daemon). Merged in with full history from its former standalone repo. |
+| [`mac-settings-extractor/`](mac-settings-extractor/) | Run on the macOS side before migrating: extracts your Mac's settings (keyboard, trackpad, power, display, behavior) into a text file so you can replicate them on Linux. Merged in with full history. |
 | [`webcam-autobrightness/`](webcam-autobrightness/) | Auto screen brightness using the webcam as a light meter — the real ambient light sensor sits on the camera board and the Linux `facetimehd` driver can't read it. Samples every 5 minutes. |
 | [`kbd-backlight/`](kbd-backlight/) | Restores keyboard backlight at login (GNOME zeroes it when the ambient light sensor reads 0). |
-| [`docs/`](docs/) | The suspend/resume debugging story: kernel parameters that fix resume hangs, what's fixable and what's Apple-firmware-immovable. |
+| [`docs/`](docs/) | The suspend/resume debugging story (kernel parameters that fix resume hangs, what's fixable and what's Apple-firmware-immovable) and the original fresh-install setup checklist. |
 
 ## The critical kernel parameters
 
