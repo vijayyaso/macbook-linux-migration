@@ -88,11 +88,25 @@ gnome-extensions disable blur-my-shell@aunetx
   running when it first starts).
 - **I/O scheduler**: verified `none` on the NVMe — correct per the Arch Wiki
   (BFQ/deadline only help SATA/HDD).
-- **Wishlist — sched-ext**: the kernel has `CONFIG_SCHED_CLASS_EXT=y`, so
-  pluggable responsiveness schedulers (`scx_lavd`, `scx_bpfland`) would run,
-  but the `scx` userland tools aren't packaged for Ubuntu 24.04/Zorin 18 —
-  revisit when packaged (they keep the GUI responsive at 100% CPU load,
-  the failure mode this laptop hits most).
+- **sched-ext — DONE**: the kernel has `CONFIG_SCHED_CLASS_EXT=y`, and the
+  userland comes from [`ppa:arighi/sched-ext`](https://launchpad.net/~arighi/+archive/ubuntu/sched-ext)
+  (Canonical kernel engineer's backport for Noble; official archive support
+  starts at Ubuntu 25.04):
+
+  ```bash
+  sudo add-apt-repository ppa:arighi/sched-ext
+  sudo apt install scx
+  # /etc/default/scx:  SCX_SCHEDULER=scx_lavd  SCX_FLAGS="--autopower"
+  sudo systemctl enable --now scx.service
+  cat /sys/kernel/sched_ext/root/ops   # → lavd_… when active
+  ```
+
+  `scx_lavd` keeps the GUI responsive at 100% CPU load (the failure mode this
+  laptop hits most) and `--autopower` follows the power profile on battery.
+  If it ever misbehaves the kernel watchdog ejects it back to EEVDF; swap in
+  `scx_bpfland` via one word in `/etc/default/scx`. Custom kernels
+  (XanMod/Liquorix) were researched and rejected: marginal gains over scx on
+  the stock kernel, plus real DKMS risk to the facetimehd webcam driver.
 
 ## Already in place (verified, no action needed)
 
