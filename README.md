@@ -14,6 +14,7 @@ describe the workaround chosen instead.
 |---|---|
 | [`lid-instant-wake/`](lid-instant-wake/) | Mac-like lid behavior: instant wake for short lid closes, real deep sleep after a battery-aware delay (60 min on AC / 15 min on battery, like macOS `standbydelay`). Also turns the keyboard backlight off while closed. |
 | [`smooth-cursor-thermal/`](smooth-cursor-thermal/) | Stops cursor/desktop stutter under thermal throttling (worst at low battery while charging): blacklists `intel_powerclamp` so thermald throttles by frequency capping instead of synchronized forced-idle injection. |
+| [`cpu-power-limit/`](cpu-power-limit/) | Undervolts 50 mV and caps sustained package power at 37W instead of 45W. The stock limit is more heat than this chassis can shed — it rides 92–100°C with both fans pegged. 37W holds 82–83°C flat with no throttling, for ~200 MHz. |
 | [`wake-veil-extension/`](wake-veil-extension/) | GNOME extension: smooth macOS-style fade-from-black when waking from deep sleep, instead of an abrupt pop-in. |
 | [`three-finger-drag/`](three-finger-drag/) | macOS-style three-finger drag on the touchpad (Wayland, uinput proxy daemon). Merged in with full history from its former standalone repo. |
 | [`mac-settings-extractor/`](mac-settings-extractor/) | Run on the macOS side before migrating: extracts your Mac's settings (keyboard, trackpad, power, display, behavior) into a text file so you can replicate them on Linux. Merged in with full history. |
@@ -52,6 +53,12 @@ then `sudo update-grub` and reboot.
   breaks). Linux pretending to be macOS is the good path.
 - **Fullscreen live blur costs seconds per frame on the Iris Pro at 2880×1800** —
   the wake veil uses a plain fade for that reason.
+- **The cooler cannot dissipate the CPU's stock 45W sustained.** At the factory
+  power limit an all-core load sits at 92–100°C with both fans already at
+  maximum, hitting TjMax repeatedly. Measured after a fresh repaste *and* a
+  fin-stack clean, with only 4°C of core-to-core spread (so contact was good):
+  the repaste changed nothing. It is not a paste problem, and repasting cannot
+  fix it — capping PL1 can. See [`cpu-power-limit/`](cpu-power-limit/).
 
 ## License
 

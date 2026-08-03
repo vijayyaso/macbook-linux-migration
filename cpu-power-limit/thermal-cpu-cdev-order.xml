@@ -1,0 +1,20 @@
+<!--
+Cooling device order for CPU on MacBookPro11,4.
+
+rapl_controller is deliberately REMOVED from this list: the package power
+limits (PL2 60W / PL1 37W) are owned by intel-undervolt, and thermald was
+resetting PL1 back to the firmware value of 100W whenever temps dropped.
+intel_powerclamp is also excluded; its idle injection caused cursor lag on
+this machine and the module is blacklisted. thermald therefore cools by
+capping frequency, which is the intended behaviour here.
+
+NOTE: do not write a double hyphen anywhere inside this comment. XML forbids
+it, libxml2 rejects the whole file, and thermald then silently falls back to
+its built-in order with rapl_controller first. That happened on 2026-07-25.
+-->
+
+<CoolingDeviceOrder>
+	<CoolingDevice>intel_pstate</CoolingDevice>
+	<CoolingDevice>cpufreq</CoolingDevice>
+	<CoolingDevice>Processor</CoolingDevice>
+</CoolingDeviceOrder>
