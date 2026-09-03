@@ -1,0 +1,2 @@
+SUBSYSTEM=="leds", KERNEL=="smc::kbd_backlight", ATTR{trigger}="none", TAG+="uaccess"
+ACTION=="add", SUBSYSTEM=="leds", KERNEL=="smc::kbd_backlight", TAG+="systemd", ENV{SYSTEMD_WANTS}+="kbd-backlight-reattach.service"

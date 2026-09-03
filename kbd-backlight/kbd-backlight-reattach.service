@@ -1,0 +1,9 @@
+[Unit]
+Description=Reattach UPower to smc::kbd_backlight after applesmc reload and restore level
+# Triggered by udev (81-macbook-kbd-backlight.rules) whenever the LED device is (re)created.
+# applesmc unload/reload (smc-key, bclm-apply) recreates the sysfs node; UPower keeps a
+# stale handle and every Fn-key/SetBrightness call fails with "error writing brightness".
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'systemctl restart upower.service; sleep 1; v=$(cat /var/lib/systemd/backlight/platform-applesmc.768:leds:smc::kbd_backlight 2>/dev/null); [ -n "$v" ] || v=135; echo "$v" > /sys/class/leds/smc::kbd_backlight/brightness'

@@ -1,0 +1,13 @@
+#!/bin/sh
+case "$1/$2" in
+  post/*)
+    # Ensure disk trigger is disabled
+    echo none > /sys/class/leds/smc::kbd_backlight/trigger 2>/dev/null || true
+    # Restore brightness level (saved state or default to 150)
+    if [ -f /var/lib/systemd/backlight/platform-applesmc.768:leds:smc::kbd_backlight ]; then
+        cat /var/lib/systemd/backlight/platform-applesmc.768:leds:smc::kbd_backlight > /sys/class/leds/smc::kbd_backlight/brightness 2>/dev/null || true
+    else
+        echo 150 > /sys/class/leds/smc::kbd_backlight/brightness 2>/dev/null || true
+    fi
+    ;;
+esac

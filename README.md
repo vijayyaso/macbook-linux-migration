@@ -19,7 +19,7 @@ describe the workaround chosen instead.
 | [`three-finger-drag/`](three-finger-drag/) | macOS-style three-finger drag on the touchpad (Wayland, uinput proxy daemon). Merged in with full history from its former standalone repo. |
 | [`mac-settings-extractor/`](mac-settings-extractor/) | Run on the macOS side before migrating: extracts your Mac's settings (keyboard, trackpad, power, display, behavior) into a text file so you can replicate them on Linux. Merged in with full history. |
 | [`webcam-autobrightness/`](webcam-autobrightness/) | Auto screen brightness using the webcam as a light meter — the real ambient light sensor sits on the camera board and the Linux `facetimehd` driver can't read it. Samples every 5 minutes. |
-| [`kbd-backlight/`](kbd-backlight/) | Restores keyboard backlight at login (GNOME zeroes it when the ambient light sensor reads 0). |
+| [`kbd-backlight/`](kbd-backlight/) | Keyboard backlight: restore at login (ALS reads 0), stop the disk-activity flicker (udev trigger), restore after resume (sleep hook), and reattach UPower after an `applesmc` reload (otherwise Fn keys go dead). |
 | [`docs/`](docs/) | The suspend/resume debugging story (kernel parameters that fix resume hangs, what's fixable and what's Apple-firmware-immovable) and the original fresh-install setup checklist. |
 
 ## The critical kernel parameters
