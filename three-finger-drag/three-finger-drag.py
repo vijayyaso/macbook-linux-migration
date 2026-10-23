@@ -136,6 +136,38 @@ def palm_size_threshold(dev):
     return None
 
 
+def _eviocgmtslots(size):
+    # _IOC(_IOC_READ, 'E', 0x0a, size) from linux/input.h
+    return (2 << 30) | (size << 16) | (ord('E') << 8) | 0x0a
+
+
+def read_kernel_slots(dev):
+    """The kernel's own current picture of every touch, as
+    {slot: {abs_code: value}} for contacts that are down. Used after
+    SYN_DROPPED, when the events in between are gone for good — the
+    evdev protocol says to re-read device state at that point instead of
+    trusting what was tracked (libevdev does the same)."""
+    nslots = dev.absinfo(ecodes.ABS_MT_SLOT).max + 1
+    codes = [c[0] if isinstance(c, tuple) else c
+             for c in dev.capabilities().get(ecodes.EV_ABS, [])]
+    mt_codes = [c for c in codes
+                if ABS_MAJOR <= c <= ecodes.ABS_MT_TOOL_Y
+                and c != ecodes.ABS_MT_TRACKING_ID]
+
+    def column(code):
+        buf = bytearray(struct.pack('i', code) + bytes(4 * nslots))
+        fcntl.ioctl(dev.fd, _eviocgmtslots(len(buf)), buf)
+        return struct.unpack(f'{nslots}i', buf[4:])
+
+    tids = column(ecodes.ABS_MT_TRACKING_ID)
+    state = {s: {} for s in range(nslots) if tids[s] != -1}
+    for code in mt_codes:
+        values = column(code)
+        for s in state:
+            state[s][code] = values[s]
+    return state
+
+
 def find_touchpad():
     for path in sorted(glob.glob('/dev/input/event*')):
         try:
@@ -244,6 +276,7 @@ def main():
     clone_count = 0
     current_slot = 0
     frame_buf = bytearray()
+    dropped = False       # SYN_DROPPED seen: discard until next SYN_REPORT
     suppressed = False
     resync_at = None      # deferred-resync deadline (monotonic) or None
     dragging = False
@@ -441,17 +474,44 @@ def main():
             for event in events:
                 if event.type == ecodes.EV_SYN:
                     if event.code == ecodes.SYN_DROPPED:
-                        # kernel queue overflow: our per-slot state is no
-                        # longer trustworthy. Reset; it self-heals as
-                        # contacts end and new ones arrive.
-                        slots.clear()
-                        four_latch = False
-                        four_tracked = frozenset()
-                        four_prev = None
-                        finish_drag()
+                        # kernel queue overflow (daemon fell behind, e.g.
+                        # a hot, busy CPU): events were lost, including
+                        # possibly a finger lift. Per the evdev protocol,
+                        # discard everything up to the next SYN_REPORT,
+                        # then re-read the real state from the kernel.
+                        dropped = True
+                        frame_buf.clear()
                         continue
                     if event.code != ecodes.SYN_REPORT:
                         continue
+                    if dropped:
+                        # Rebuild our state from the kernel and make the
+                        # clone match it. Without this the clone kept a
+                        # finger whose lift was lost — a "ghost finger"
+                        # that turned every 1-finger touch into a
+                        # 2-finger one and froze the pointer.
+                        dropped = False
+                        frame_buf.clear()
+                        slots.clear()
+                        slots.update(read_kernel_slots(touchpad))
+                        current_slot = touchpad.absinfo(
+                            ecodes.ABS_MT_SLOT).value
+                        down = set(touchpad.active_keys())
+                        for code in BUTTON_CODES:
+                            btn_state[code] = int(code in down)
+                        four_latch = False
+                        four_tracked = frozenset()
+                        four_prev = None
+                        end_drag()
+                        if proxy_mode:
+                            suppressed = False
+                            resync_at = None
+                            resync_clone()
+                        print(f'SYN_DROPPED: resynced from kernel '
+                              f'({len(slots)} finger(s) down)', flush=True)
+                        continue
+                elif dropped:
+                    continue
                 else:
                     if event.type == ecodes.EV_ABS:
                         if event.code == ecodes.ABS_MT_SLOT:
