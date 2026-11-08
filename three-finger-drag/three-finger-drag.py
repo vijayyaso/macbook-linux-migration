@@ -274,7 +274,9 @@ def main():
     clone_slots = set()   # slots the clone currently believes are down
     clone_btn = {}        # button state the clone currently believes
     clone_count = 0
-    current_slot = 0
+    # the kernel may not be on slot 0 (e.g. the service restarted mid-use)
+    current_slot = touchpad.absinfo(ecodes.ABS_MT_SLOT).value
+    frame_slot0 = current_slot   # kernel's slot when the current frame began
     frame_buf = bytearray()
     dropped = False       # SYN_DROPPED seen: discard until next SYN_REPORT
     suppressed = False
@@ -496,6 +498,7 @@ def main():
                         slots.update(read_kernel_slots(touchpad))
                         current_slot = touchpad.absinfo(
                             ecodes.ABS_MT_SLOT).value
+                        frame_slot0 = current_slot
                         down = set(touchpad.active_keys())
                         for code in BUTTON_CODES:
                             btn_state[code] = int(code in down)
@@ -752,6 +755,18 @@ def main():
                             resync_at = None
                             resync_clone()
                     elif proxy_mode:
+                        # The kernel only prints ABS_MT_SLOT when the slot
+                        # CHANGES, so a raw frame assumes the receiver is
+                        # already on the kernel's slot. After any synthetic
+                        # write (resync, 4-finger swipe) the clone sits on a
+                        # different slot, and the frame's lift / touch /
+                        # motion would hit the wrong finger: a ghost finger
+                        # and libevdev "double tracking ID". Name the slot
+                        # the frame started on, so both sides agree.
+                        # Repeating the current slot is harmless.
+                        frame_buf[:0] = EVENT_STRUCT.pack(
+                            event.sec, event.usec,
+                            ecodes.EV_ABS, ecodes.ABS_MT_SLOT, frame_slot0)
                         os.write(clone.fd,
                                  bytes(frame_buf) + EVENT_STRUCT.pack(
                                      event.sec, event.usec,
@@ -763,6 +778,7 @@ def main():
                         clone_btn.update(btn_state)
 
                 frame_buf.clear()
+                frame_slot0 = current_slot
 
         # --- timer-driven work (fires even with no touchpad events) ---
         if pending and time.time() - pend_t > DRAG_START_HOLD:
